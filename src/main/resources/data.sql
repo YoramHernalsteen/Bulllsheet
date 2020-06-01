@@ -626,3 +626,177 @@ insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (n
 insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:30',3,2);
 insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',3,3);
 insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'01:30',3,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'21:30',4,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'06:30',4,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',4,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:30',4,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:30',5,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'04:30',5,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:30',5,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'13:30',5,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'20:30',6,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:30',6,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',6,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'01:30',6,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'21:30',7,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',7,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'13:30',7,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',7,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'23:30',8,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',8,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',8,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'03:30',8,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',9,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',9,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'14:30',9,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',9,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'20:30',10,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:30',10,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',10,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'01:30',10,4);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'22:30',11,1);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',11,2);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',11,3);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',11,4);
+
+--parelvissers
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',12,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'19:30',12,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'14:30',12,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',12,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',13,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',13,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:30',13,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'14:30',13,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',14,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'20:30',14,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',14,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:30',14,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',15,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',15,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'19:30',15,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'13:30',15,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',16,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:30',16,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',16,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',16,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:30',17,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',17,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',17,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',17,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',18,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'19:30',18,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'14:30',18,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',18,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'01:30',19,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:30',19,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'14:30',19,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'13:30',19,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',20,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'07:30',20,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'06:30',20,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:30',20,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',21,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'19:30',21,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'14:30',21,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',21,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',22,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',22,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',22,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:30',22,8);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'23:30',23,5);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:30',23,6);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',23,7);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:30',23,8);
+
+--clan
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'23:30',24,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:30',24,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',24,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:30',24,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:30',25,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',25,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'18:30',25,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',25,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',26,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:00',26,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:00',26,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:00',26,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'23:00',27,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:00',27,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:45',27,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:15',27,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:30',28,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',28,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:30',28,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'07:30',28,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'20:30',29,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:30',29,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'18:30',29,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'19:30',29,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'23:00',30,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:00',30,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'10:45',30,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:15',30,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'07:00',31,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'06:00',31,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:45',31,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:15',31,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:00',32,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'19:00',32,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:45',32,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:15',32,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:00',33,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'23:00',33,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'07:45',33,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:15',33,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'22:00',34,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'08:00',34,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'09:45',34,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:15',34,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:00',35,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:00',35,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'05:45',35,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'04:15',35,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'17:00',36,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:00',36,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'11:45',36,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'12:15',36,12);
+
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'22:00',37,9);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'13:00',37,10);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'15:45',37,11);
+insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:15',37,12);
+
+

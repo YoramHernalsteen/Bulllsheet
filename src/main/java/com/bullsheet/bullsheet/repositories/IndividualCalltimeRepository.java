@@ -2,6 +2,7 @@ package com.bullsheet.bullsheet.repositories;
 
 import com.bullsheet.bullsheet.model.Callsheet;
 import com.bullsheet.bullsheet.model.IndividualCalltime;
+import com.bullsheet.bullsheet.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
