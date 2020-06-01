@@ -19,7 +19,6 @@
             <img src="/img/BullSheets_logo.png" height="60">
             <h1 id="navbarProdName" th:text=" ${callsheet.getProduction().getName()}"></h1>
         </a>
-
         <button class="navbar-toggler" type="button"
                 data-toggle="collapse"
                 data-target="#navbarBull"
@@ -60,7 +59,6 @@
     </div>
 </nav>
 
-
 <div class="container top">
     <div class="mt-2">
         <div class="float-left">
@@ -70,7 +68,7 @@
             <div class="col-5 offset-7 mb-3">
                 <button class="btn btn-primary w-100 text-left knop"><a th:if="${adminPowers}"
                                                                         th:href="|/admin/edit-callsheet/${callsheet.getId()}|"
-                                                                        class="knopLink">Pas deze callsheet aan</a>
+                                                                        class="knopLink">Edit this callsheet</a>
                 </button>
             </div>
         </div>
@@ -78,8 +76,8 @@
             <div class="col-5 offset-7">
                 <button class="btn btn-primary w-100 text-left knop"><a th:if="${adminPowers}"
                                                                         th:href="|/admin/template-callsheet/${callsheet.getId()}|"
-                                                                        class="knopLink">Nieuwe
-                    callsheet met dit template</a></button>
+                                                                        class="knopLink">New callsheet using this as a
+                    template</a></button>
             </div>
         </div>
     </div>
@@ -99,7 +97,7 @@
                 <div class="col">
                     <div class="row borderLook logo">
                         <h1 class="center text-uppercase pt-5"
-                            th:text="${callsheet.getProduction().getName()}"></h1>
+                            th:text="${callsheet.getProduction().getName()}">Productienaam</h1>
                     </div>
                     <div class="row">
                         <br><br>
@@ -130,16 +128,16 @@
             </div>
 
             <div id="location">
-                <div class="row border-bottom"><h4>Locatie:</h4></div>
+                <div class="row border-bottom"><h4>Location:</h4></div>
                 <div class="row">
                     <div class="col-3">
-                        <h6>SET LOCATIE</h6>
+                        <h6>SET LOCATION</h6>
                     </div>
                     <div class="col-6">
-                        <h6>PARKING & OPMERKINGEN</h6>
+                        <h6>PARKING & REMARKS</h6>
                     </div>
                     <div class="col-3">
-                        <h6>DICHTSBIJZIJNDE ZIEKENHUIS</h6>
+                        <h6>CLOSEST HOSPITAL</h6>
                     </div>
                 </div>
                 <div class="row">
@@ -150,10 +148,10 @@
                             adres</p>
                     </div>
                     <div class="col-6">
-                        <a>notes</a>
+                        <a>Notes</a>
                     </div>
                     <div class="col-3">
-                        <a>ziekenhuis</a>
+                        <a>Hospital</a>
                     </div>
                 </div>
             </div>
@@ -163,9 +161,9 @@
                 <div>
                     <table width="100%">
                         <tr class="row">
-                            <th class="col-2"><h6>FUNCTIE</h6></th>
-                            <th class="col-3"><h6>NAAM</h6></th>
-                            <th class="col-2"><h6>TELEFOON</h6></th>
+                            <th class="col-2"><h6>FUNCTION</h6></th>
+                            <th class="col-3"><h6>NAME</h6></th>
+                            <th class="col-2"><h6>TELEPHONE</h6></th>
                             <th class="col-3"><h6>MAIL</h6></th>
                             <th class="col-2"><h6>CALL</h6></th>
                         </tr>
@@ -188,9 +186,9 @@
                 <div>
                     <table width="100%">
                         <tr class="row">
-                            <th class="col-2"><h6>FUNCTIE</h6></th>
-                            <th class="col-3"><h6>NAAM</h6></th>
-                            <th class="col-2"><h6>TELEFOON</h6></th>
+                            <th class="col-2"><h6>FUNCTION</h6></th>
+                            <th class="col-3"><h6>NAME</h6></th>
+                            <th class="col-2"><h6>TELEPHONE</h6></th>
                             <th class="col-3"><h6>MAIL</h6></th>
                             <th class="col-2"><h6>CALL</h6></th>
                         </tr>
@@ -209,14 +207,14 @@
             </div>
             <br>
             <div id="planning">
-                <div class="row border-bottom"><h4>Opnameplanning:</h4></div>
+                <div class="row border-bottom"><h4>Recording schedule:</h4></div>
                 <div>
                     <table width="100%">
                         <tr class="row">
-                            <td class="col-2" colspan="2"><h6>UUR</h6></td>
-                            <td class="col-4"><h6>BESCHRIJVING</h6></td>
-                            <td class="col-3"><h6>LOCATIE</h6></td>
-                            <td class="col-3"><h6>AANWEZIG OP SET</h6></td>
+                            <td class="col-2" colspan="2"><h6>HOUR</h6></td>
+                            <td class="col-4"><h6>DESCRIPTION</h6></td>
+                            <td class="col-3"><h6>LOCATION</h6></td>
+                            <td class="col-3"><h6>ON SET</h6></td>
                         </tr>
                         <tr class="row" th:each="agenda:${planning}">
                             <td class="col" th:text="${agenda.timeStart}">Start</td>
@@ -235,7 +233,7 @@
                     <form th:action="@{|/callsheet/${callsheet.getId()}|}" method="POST" id="delayPost">
                         <table width="100%">
                             <tr class="row">
-                                <td class="col-2"><h6>OPGELOPEN VERTRAGING:</h6></td>
+                                <td class="col-2"><h6>INCURRED DELAY:</h6></td>
                                 <td class="col-2">
                                     <button type="button" class="btn btn-primary w-100" onclick="extraTime(5);"><b>+5
                                         min</b>
@@ -257,7 +255,7 @@
 
                             </tr>
                             <tr class="row">
-                                <td class="col-2"><h6>REDEN VAN VERTRAGING:</h6></td>
+                                <td class="col-2"><h6>REASON OF DELAY:</h6></td>
                                 <td class="col-8"><input type="text" id="delayReason" name="delayReason"
                                                          class="form-control"></td>
                                 <td class="col-2"><input type="submit" id="submitDelay" name="DelayIndienen"
@@ -269,12 +267,12 @@
             </div>
             <br><br>
             <div th:if="${adminPowers}" id="Note">
-                <div class="row border-bottom"><h4>Overige opmerking</h4></div>
+                <div class="row border-bottom"><h4>Other remarks</h4></div>
                 <div>
                     <form th:action="@{|/callsheet/${callsheet.getId()}/note|}" method="POST" id="notePost">
                         <table width="100%">
                             <tr class="row">
-                                <td class="col-2"><h6>OVERIGE OPMERKING:</h6></td>
+                                <td class="col-2"><h6>OTHER REMARKS:</h6></td>
                                 <td class="col-8"><input type="text" id="noteText" name="noteText" class="form-control">
                                 </td>
                                 <td class="col-2"><input type="submit" id="submitNote" name="noteIndienen"
@@ -286,7 +284,7 @@
             </div>
             <br><br>
             <div id="Materiaal">
-                <div class="row border-bottom"><h4>Materiaal:</h4></div>
+                <div class="row border-bottom"><h4>Material:</h4></div>
                 <div class="row border">
                     <br>
                     <ul>
@@ -298,25 +296,25 @@
             </div>
             <br><br>
             <div id="Rapport">
-                <div class="row border-bottom"><h4>Rapport laattijdigheid</h4></div>
+                <div class="row border-bottom"><h4>Overview delay's</h4></div>
                 <div>
                     <table width="100%">
                         <tr class="row">
-                            <td class="col-2" colspan="2"><h6>TIJDSTIP</h6></td>
-                            <td class="col-7"><h6>REDEN</h6></td>
-                            <td class="col-3"><h6>OPGELOPEN VERTRAGING</h6></td>
+                            <td class="col-2" colspan="2"><h6>TIME</h6></td>
+                            <td class="col-7"><h6>REASON</h6></td>
+                            <td class="col-3"><h6>INCURRED DELAY</h6></td>
                         </tr>
                         <tr class="row" th:each="delay:${delay}">
                             <td class="col-2" th:text="${delay.getTime().toString()}">beschrijving</td>
                             <td class="col-7" th:text="${delay.getReason()}">Locatie</td>
-                            <td class="col-3" th:text="${delay.getDelayDuration()} + ' minuten'"></td>
+                            <td class="col-3" th:text="${delay.getDelayDuration()} + ' minuteS'"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <br><br>
             <div id="noteRapport">
-                <div class="row border-bottom"><h4>Overige opmerkingen</h4></div>
+                <div class="row border-bottom"><h4>Other remarks</h4></div>
                 <div>
                     <table width="100%">
                         <tr class="row" th:each="note:${note}">
@@ -330,7 +328,7 @@
     </section>
     <br><br>
     <button class="btn btn-primary knop"><a th:href="|/download/${callsheet.id}|" ref="/download" class="knopLink">Download
-        callsheet in excel vorm</a></button>
+        callsheet in Excel</a></button>
     <br><br><br><br>
 </div>
 

@@ -24,7 +24,7 @@
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <div class="card rounded shadow shadow-sm">
                         <div class="card-header">
-                            <h3 class="mb-0">BullSheet Preview Chat</h3>
+                            <h3 class="mb-0">BullSheet Chat</h3>
                         </div>
                         <div class="card-body">
                             <div id="messages">
@@ -36,7 +36,7 @@
                                 <button type="submit" class="btn btn-success btn-sm">Send</button>
                             </form>
                             <hr>
-                            <p>your name: <b id="username" th:utext="${username}"></b> - <a th:href="@{/logout}">disconnect</a>
+                            <p>Your name: <b id="username" th:utext="${username}"></b> - <a th:href="@{/logout}">Disconnect</a>
                             </p>
                             <script th:src="@{/js/chat.js}"></script>
                         </div>

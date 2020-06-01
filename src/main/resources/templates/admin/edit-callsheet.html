@@ -39,25 +39,25 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#productionInfo"
-                                            class="nav-link active tabLook">Productieinfo</a>
+                                            class="nav-link active tabLook">Production info</a>
                     </li>
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#cast" class="nav-link tabLook">Cast</a>
                     </li>
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#crew" class="nav-link tabLook">Crew</a>
                     </li>
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#location"
-                                            class="nav-link tabLook">Hoofdlocatie</a>
+                                            class="nav-link tabLook">Main location</a>
                     </li>
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#extraLocation"
-                                            class="nav-link tabLook">Extra locaties</a>
+                                            class="nav-link tabLook">Extra locations</a>
                     </li>
-                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#planning" class="nav-link tabLook">Opnameplanning</a>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#planning" class="nav-link tabLook">Schedule</a>
                     </li>
                     <li class="nav-item"><a data-toggle="tab" role="tab" href="#material"
-                                            class="nav-link tabLook">Materiaal</a>
+                                            class="nav-link tabLook">Equipment</a>
                     </li>
-                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#submit" class="nav-link tabLook">Callsheet
-                        indienen</a>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#submit" class="nav-link tabLook">Submit
+                        callsheet</a>
                     </li>
                 </ul>
                 <div>
@@ -66,7 +66,7 @@
                             <table width="100%" class="table table-striped">
                                 <thead class="thead-dark">
                                 <tr class="row">
-                                    <th class="col-6">Datum callsheet</th>
+                                    <th class="col-6">Callsheet date</th>
                                     <th class="col-6">crewcall</th>
                                 </tr>
                                 </thead>
@@ -87,12 +87,12 @@
                             <table width="100%" class="table table-striped">
                                 <thead class="thead-dark">
                                 <tr class="row">
-                                    <th class="col-2">Functie</th>
-                                    <th class="col-3">Naam</th>
-                                    <th class="col">Telefoonnummer</th>
+                                    <th class="col-2">Function</th>
+                                    <th class="col-3">Name</th>
+                                    <th class="col">Telephone number</th>
                                     <th class="col-3">Email</th>
                                     <th class="col">Call</th>
-                                    <th class="col-1">Verwijder</th>
+                                    <th class="col-1">Remove</th>
                                 </tr>
                                 </thead>
                                 <tbody id="castJS">
@@ -123,12 +123,12 @@
                             <table width="100%" class="table table-striped">
                                 <thead class="thead-dark">
                                 <tr class="row">
-                                    <th class="col-2">Functie</th>
-                                    <th class="col-3">Naam</th>
-                                    <th class="col">Telefoonnummer</th>
+                                    <th class="col-2">Function</th>
+                                    <th class="col-3">Name</th>
+                                    <th class="col">Telephone number</th>
                                     <th class="col-3">Email</th>
                                     <th class="col">Call</th>
-                                    <th class="col-1">Verwijder</th>
+                                    <th class="col-1">Remove</th>
                                 </tr>
                                 </thead>
                                 <tbody id="crewJS">
@@ -164,12 +164,12 @@
                             <table width="100%" class="table table-striped">
                                 <thead class="thead-dark">
                                 <tr class="row">
-                                    <th class="col-3">Plaatsnaam</th>
-                                    <th class="col-4">Adres</th>
-                                    <th class="col-1">Postcode</th>
-                                    <th class="col-2">Stad</th>
-                                    <th class="col-2">Type locatie</th>
-                                    <th class="col-12">Exra informatie</th>
+                                    <th class="col-2">Location name</th>
+                                    <th class="col-3">Address</th>
+                                    <th class="col-1">Zip code</th>
+                                    <th class="col-2">City</th>
+                                    <th class="col-3">Location type</th>
+                                    <th class="col-12">Extra information</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -200,13 +200,13 @@
                             <table width="100%" class="table table-striped">
                                 <thead class="thead-dark">
                                 <tr class="row">
-                                    <th class="col-3">Plaatsnaam</th>
-                                    <th class="col-3">Adres</th>
-                                    <th class="col-1">Postcode</th>
-                                    <th class="col-2">Stad</th>
-                                    <th class="col-2">Type locatie</th>
-                                    <th class="col-1">Verwijder</th>
-                                    <th class="col-12">Exra informatie</th>
+                                    <th class="col-2">Location name</th>
+                                    <th class="col-3">Address</th>
+                                    <th class="col-1">Zip code</th>
+                                    <th class="col-2">City</th>
+                                    <th class="col-3">Location type</th>
+                                    <th class="col-1">Remove</th>
+                                    <th class="col-12">Extra information</th>
                                 </tr>
                                 </thead>
                                 <tbody id="locationJS">
@@ -246,10 +246,10 @@
                                 <thead class="thead-dark">
                                 <tr class="row">
                                     <th class="col">Start</th>
-                                    <th class="col">Einde</th>
-                                    <th class="col-3">Locatie</th>
-                                    <th class="col-5">Beschrijving</th>
-                                    <th class="col-1">Verwijder</th>
+                                    <th class="col">End</th>
+                                    <th class="col-3">Location</th>
+                                    <th class="col-5">Description</th>
+                                    <th class="col-1">Remove</th>
                                 </tr>
                                 </thead>
                                 <tbody id="planningJS">
@@ -284,9 +284,9 @@
                                 <thead class="thead-dark">
                                 <tr class="row">
                                     <th class="col-2">Type</th>
-                                    <th class="col-2">Naam</th>
-                                    <th class="col-7">Specificaties</th>
-                                    <th class="col-1">Verwijder</th>
+                                    <th class="col-2">Name</th>
+                                    <th class="col-7">Specifications</th>
+                                    <th class="col-1">Remove</th>
                                 </tr>
                                 </thead>
                                 <tbody id="materialsJS">
@@ -316,7 +316,7 @@
                         </div>
                         <div class="tab-pane" id="submit">
                             <br>
-                            <input type="submit" id="submitbutton" name="Dien callsheet in"
+                            <input type="submit" id="submitbutton" name="Submit callsheet"
                                    class="w-25 btn btn-primary">
                         </div>
                     </form>

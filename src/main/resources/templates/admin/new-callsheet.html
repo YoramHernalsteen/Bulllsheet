@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Callsheet Creator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script th:src="@{/js/dynamicForm.js}"></script>
     <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
@@ -52,7 +53,8 @@
                            th:href="|/user-list/|">User-List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+                        <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout <i
+                                class="fas fa-sign-out-alt"></i></a>
                     </li>
                 </ul>
             </div>
@@ -70,23 +72,23 @@
                 <form method="post" onsubmit="return dateSubmissionCheck();">
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="nameProductionCompany">Productiehuis</label>
+                            <label for="nameProductionCompany">Production Company</label>
                             <input type="text" class="form-control" id="nameProductionCompany" name="productionCompany"
                                    th:value="${production.getProductionCompany().getName()}" disabled>
                         </div>
                         <div class="form-group col">
-                            <label for="adressProductionCompany">Straat en huisnummer</label>
+                            <label for="adressProductionCompany">Street name and number</label>
                             <input type="text" class="form-control" id="adressProductionCompany"
                                    name="productionCompany" th:value="${production.getProductionCompany().getAdres()}"
                                    disabled>
                         </div>
                         <div class="form-group col">
-                            <label for="zipProductionCompany">Postcode</label>
+                            <label for="zipProductionCompany">Zip code</label>
                             <input type="text" class="form-control" id="zipProductionCompany" name="productionCompany"
                                    th:value="${production.getProductionCompany().getZipcode()}" disabled>
                         </div>
                         <div class="form-group col">
-                            <label for="cityProductionCompany">Stad</label>
+                            <label for="cityProductionCompany">City</label>
                             <input type="text" class="form-control" id="cityProductionCompany" name="productionCompany"
                                    th:value="${production.getProductionCompany().getCity()}" disabled>
                         </div>
@@ -94,16 +96,16 @@
 
                     <div class="form-row">
                         <div class="form-group col">
-                            <label for="productionName">Productie</label>
+                            <label for="productionName">Production</label>
                             <input type="text" class="form-control" id="productionName" name="productionName"
                                    th:value="${production.getName()}" disabled>
                         </div>
                         <div class="form-group col-md-4 popup">
-                            <label for="callsheetDate">Datum callsheet</label>
+                            <label for="callsheetDate">Callsheet date</label>
                             <span class="popuptext" id="datePopup" style="visibility:hidden">A callsheet with this date already exists!</span>
                             <input type="date" class="form-control" id="callsheetDate" name="callsheetDate"
                                    th:min="${currentDate}" onchange="datePoppers();" required>
-                            <ul id="futureSheets"  style="display: none">
+                            <ul id="futureSheets" style="display: none">
                                 <li th:each="sheet:${futureSheets}" th:value="${sheet.getDate()}">date</li>
                             </ul>
                         </div>
@@ -113,16 +115,16 @@
                         </div>
                     </div>
 
-                    <h2>Locatie</h2>
+                    <h2>Location</h2>
                     <table width="100%" class="table table-striped">
                         <thead class="thead-dark">
                         <tr class="row">
-                            <th class="col-2">Plaatsnaam</th>
-                            <th class="col-4">Straatnaam en huisnummer</th>
-                            <th class="col-1">Postcode</th>
-                            <th class="col-2">Stad</th>
-                            <th class="col-3">Type locatie</th>
-                            <th class="col-12">Exra informatie</th>
+                            <th class="col-2">Location name</th>
+                            <th class="col-4">Street name and number</th>
+                            <th class="col-1">Zip code</th>
+                            <th class="col-2">City</th>
+                            <th class="col-3">Location type</th>
+                            <th class="col-12">Extra information</th>
                         </tr>
                         </thead>
                         <tbody id="location">
@@ -147,12 +149,12 @@
                     <table width="100%" class="table table-striped">
                         <thead class="thead-dark">
                         <tr class="row">
-                            <th class="col-2">Functie</th>
-                            <th class="col-3">Naam</th>
-                            <th class="col">Telefoonnummer</th>
+                            <th class="col-2">Function</th>
+                            <th class="col-3">Name</th>
+                            <th class="col">Telephone number</th>
                             <th class="col-3">Email</th>
                             <th class="col">Call</th>
-                            <th class="col-1">Verwijder</th>
+                            <th class="col-1">Remove</th>
                         </tr>
                         </thead>
                         <tbody id="crew">
@@ -168,7 +170,9 @@
                             <td class="col"><input type="time" class="w-100 form-control" id="crewCall" name="crewRow0">
                             </td>
                             <td class="col-1">
-                                <button class="deleteRow castCrewNewCallsheet float-right" onclick="buttonCastCrewNewCallsheet()"><i class="fas fa-trash-alt fa-2x iconDel"></i></button>
+                                <button class="deleteRow castCrewNewCallsheet float-right"
+                                        onclick="buttonCastCrewNewCallsheet()"><i
+                                        class="fas fa-trash-alt fa-2x iconDel"></i></button>
                             </td>
                         </tr>
                         </tbody>
@@ -180,12 +184,12 @@
                     <table width="100%" class="table table-striped">
                         <thead class="thead-dark">
                         <tr class="row">
-                            <th class="col-2">Functie</th>
-                            <th class="col-3">Naam</th>
-                            <th class="col">Telefoonnummer</th>
+                            <th class="col-2">Function</th>
+                            <th class="col-3">Name</th>
+                            <th class="col">Telephone number</th>
                             <th class="col-3">Email</th>
                             <th class="col">Call</th>
-                            <th class="col-1">Verwijder</th>
+                            <th class="col-1">Remove</th>
                         </tr>
                         </thead>
                         <tbody id="cast">
@@ -201,7 +205,9 @@
                             <td class="col"><input type="time" class="w-100 form-control" id="castCall" name="castRow0">
                             </td>
                             <td class="col-1">
-                                <button class="deleteRow castCrewNewCallsheet float-right" onclick="buttonCastCrewNewCallsheet()"><i class="fas fa-trash-alt fa-2x iconDel"></i></button>
+                                <button class="deleteRow castCrewNewCallsheet float-right"
+                                        onclick="buttonCastCrewNewCallsheet()"><i
+                                        class="fas fa-trash-alt fa-2x iconDel"></i></button>
                             </td>
                         </tr>
                         </tbody>
@@ -209,17 +215,17 @@
                     <button type="button" class="btn btn-primary mb-3 float-right" onclick="addRowCastNewCallsheet()">
                         <b>+</b></button>
 
-                    <h2>Extra Locaties</h2>
+                    <h2>Extra Locations</h2>
                     <table width="100%" class="table table-striped">
                         <thead class="thead-dark">
                         <tr class="row">
-                            <th class="col-2">Plaatsnaam</th>
-                            <th class="col-3">Straatnaam en huisnummer</th>
-                            <th class="col-1">Postcode</th>
-                            <th class="col-2">Stad</th>
-                            <th class="col-3">Type locatie</th>
-                            <th class="col-1">Verwijder</th>
-                            <th class="col-12">Exra informatie</th>
+                            <th class="col-2">Location name</th>
+                            <th class="col-3">Street name and number</th>
+                            <th class="col-1">Zip code</th>
+                            <th class="col-2">City</th>
+                            <th class="col-3">Location type</th>
+                            <th class="col-1">Remove</th>
+                            <th class="col-12">Extra information</th>
                         </tr>
                         </thead>
                         <tbody id="extraLocation">
@@ -235,7 +241,8 @@
                             <td class="col-3"><input type="text" class="w-100 form-control" id="typeExtraLocation"
                                                      name="extraLocationRow0"></td>
                             <td class="col-1">
-                                <button class="deleteRow float-right"><i class="fas fa-trash-alt fa-2x iconDel"></i></button>
+                                <button class="deleteRow float-right"><i class="fas fa-trash-alt fa-2x iconDel"></i>
+                                </button>
                             </td>
                             <td class="col-12"><input type="text" class="w-100 form-control" id="infoExtraLocation"
                                                       name="extraLocationRow0"></td>
@@ -246,14 +253,14 @@
                             onclick="addRowLocationsNewCallsheet()"><b>+</b>
                     </button>
 
-                    <h2>Opnameplanning</h2>
+                    <h2>Schedule</h2>
                     <table width="100%" class="table table-striped">
                         <thead class="thead-dark">
                         <tr class="row">
                             <th class="col">Start</th>
-                            <th class="col">Einde</th>
-                            <th class="col-7">Beschrijving</th>
-                            <th class="col-1">Verwijder</th>
+                            <th class="col">End</th>
+                            <th class="col-7">Description</th>
+                            <th class="col-1">Remove</th>
                         </tr>
                         </thead>
                         <tbody id="planning">
@@ -265,7 +272,9 @@
                             <td class="col-7"><input type="text" class="w-100 pb-5 mb-5 form-control"
                                                      id="planningDescription" name="planningRow0" required></td>
                             <td class="col-1">
-                                <button class="deleteRow castCrewNewCallsheet float-right" onclick="buttonPlanningNewCallsheet()"><i class="fas fa-trash-alt fa-2x iconDel"></i></button>
+                                <button class="deleteRow castCrewNewCallsheet float-right"
+                                        onclick="buttonPlanningNewCallsheet()"><i
+                                        class="fas fa-trash-alt fa-2x iconDel"></i></button>
                             </td>
                         </tr>
                         </tbody>
@@ -275,14 +284,14 @@
                     </button>
 
 
-                    <h2>Materiaal</h2>
+                    <h2>Equipment</h2>
                     <table width="100%" class="table table-striped">
                         <thead class="thead-dark">
                         <tr class="row">
                             <th class="col-2">Type</th>
-                            <th class="col-2">Naam</th>
-                            <th class="col-7">Specificaties</th>
-                            <th class="col-1">Verwijder</th>
+                            <th class="col-2">Name</th>
+                            <th class="col-7">Specifications</th>
+                            <th class="col-1">Remove</th>
                         </tr>
                         </thead>
                         <tbody id="material">
@@ -294,7 +303,9 @@
                             <td class="col-7"><input type="text" class="w-100 form-control"
                                                      id="materialSpecifications" name="materialRow0"></td>
                             <td class="col-1">
-                                <button class="deleteRow castCrewNewCallsheet float-right" onclick="buttonEquipmentNewCallsheet()"><i class="fas fa-trash-alt fa-2x iconDel"></i></button>
+                                <button class="deleteRow castCrewNewCallsheet float-right"
+                                        onclick="buttonEquipmentNewCallsheet()"><i
+                                        class="fas fa-trash-alt fa-2x iconDel"></i></button>
                             </td>
                         </tr>
                         </tbody>
@@ -303,7 +314,7 @@
                             onclick="addRowMaterialsNewCallsheet()"><b>+</b></button>
                     <br><br>
                     <div>
-                        <button type="submit" class="btn btn-primary">Maak callsheet</button>
+                        <button type="submit" class="btn btn-primary">Make callsheet</button>
                         <a class="btn cancel" href="/">Cancel</a>
                     </div>
                 </form>
@@ -314,14 +325,21 @@
 
     <footer>
         <div class="text-center p-2">
-            <a href="https://sennmaes.wixsite.com/bullsheets" class="p-2"><i class="far fa-copyright"></i> BULLSHEETS</a>
+            <a href="https://sennmaes.wixsite.com/bullsheets" class="p-2"><i class="far fa-copyright"></i>
+                BULLSHEETS</a>
             <p class="font-italic pt-2">Cut the bullshit</p>
         </div>
     </footer>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
     <script>
 
         $('.table tbody').on('click', '.deleteRow', function () {
@@ -331,10 +349,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $( function() {
-            $( "#planning" ).sortable();
-            $( "#planning" ).disableSelection();
-        } );
+        $(function () {
+            $("#planning").sortable();
+            $("#planning").disableSelection();
+        });
     </script>
 </div>
 </body>

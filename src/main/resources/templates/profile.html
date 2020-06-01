@@ -16,7 +16,7 @@
     <nav class="col text-center nav-bg">
         <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
         <a class="nav-item btn btn-nav" href="/">Home</a>
-        <a class="nav-item btn btn-nav" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+        <a class="nav-item btn btn-nav" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
     </nav>
 </header>
 
@@ -27,8 +27,8 @@
             <p>Username: <span th:text="${user.getUsername()}">username</span></p>
             <p>First name: <span th:text="${user.getFirstName()}">First name</span></p>
             <p>Last name: <span th:text="${user.getLastName()}">Last name</span></p>
-            <p>e-mail: <span th:text="${user.getEmail()}">e-mail</span></p>
-            <p>phone number: <span th:text="${user.getPhoneNumber()}">phone number</span></p>
+            <p>Email: <span th:text="${user.getEmail()}">Email</span></p>
+            <p>Phone number: <span th:text="${user.getPhoneNumber()}">Phone number</span></p>
             <a class="btn btn-primary" href="/profile-edit">Edit profile</a>
         </div>
     </div>

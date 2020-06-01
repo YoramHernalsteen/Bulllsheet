@@ -66,15 +66,14 @@
     </div>
 </nav>
 
-<h1 class="top" th:unless="${callsheet}">Er zijn geen callsheets voor de komende week voor deze productie</h1>
+<h1 class="top" th:unless="${callsheet}">There are no callsheets coming in the upcoming week for this production.</h1>
 <div th:if="${callsheet}" class="top">
     <div class="container">
         <br>
         <div id="callsheetDate">
-            <h2 th:unless="${sameDateCallsheet}" class="text-danger">Dit is een aankomende callsheet en is niet van
-                vandaag!</h2>
-            <h1 th:text="|Datum vandaag: ${currentDate}|">current date</h1>
-            <h1 th:text="|Datum callsheet: ${correctedDate}|">callsheet date</h1>
+            <h2 th:unless="${sameDateCallsheet}" class="text-danger">This is a future callsheet, not of today!</h2>
+            <h1 th:text="|Today`s date: ${currentDate}|">current date</h1>
+            <h1 th:text="|Callsheet date: ${correctedDate}|">callsheet date</h1>
         </div>
         <br>
 
@@ -86,7 +85,7 @@
                          style="text-align: center;">
                         <a data-toggle="collapse" data-target="#collapseOne">
                             <div th:if="${activeRow}">
-                                <p>Momenteel bezig:</p>
+                                <p>Ongoing:</p>
                                 <li th:each="agenda:${planning}">
                                     <p th:if="${agenda.getId().equals(activeRow.getId())}"
                                        th:text="${agenda.description} +' @ '+ ${agenda.location}">agendapunt</p>
@@ -95,7 +94,7 @@
                                 </li>
                             </div>
                             <div th:unless="${activeRow}">
-                                <p>Er is momenteel geen actieve planning</p>
+                                <p>PLANNING</p>
                             </div>
                         </a>
                     </div>
@@ -170,7 +169,7 @@
                      aria-grabbed="false" style="">
                     <div class="card-header text-uppercase pb-0" id="headingFour">
                         <a data-toggle="collapse" data-target="#collapseFour" style="text-align: center;">
-                            <p>Materiaal</p>
+                            <p>Equipment</p>
                         </a>
                     </div>
 
@@ -190,7 +189,7 @@
                      aria-grabbed="false" style="">
                     <div class="card-header text-uppercase pb-0" id="headingFive">
                         <a data-toggle="collapse" data-target="#collapseFive" style="text-align: center;">
-                            <p class="mb-0">Contact gegevens:</p>
+                            <p class="mb-0">Contact:</p>
                             <p th:text="${callsheet.getProductionCompany().getName()}"></p>
                         </a>
                     </div>
@@ -214,7 +213,7 @@
                     <div class="col-lg-6 col-md-8 mx-auto">
                         <div class="card rounded shadow shadow-sm">
                             <div class="card-header">
-                                <h3 class="mb-0">BullSheet Preview Chat</h3>
+                                <h3 class="mb-0">BullSheet Chat</h3>
                             </div>
                             <div class="card-body">
                                 <div id="messages" class="messages" style="max-height: 240px;">
@@ -226,7 +225,7 @@
                                     <button type="submit" class="btn btn-primary btn-sm">Send</button>
                                 </form>
                                 <hr>
-                                <p>your name: <b id="username" th:utext="${username}"></b> - <a th:href="@{/logout}">disconnect</a>
+                                <p>Your name: <b id="username" th:utext="${username}"></b> - <a th:href="@{/logout}">Disconnect</a>
                                 </p>
                                 <script th:src="@{/js/chat.js}"></script>
                             </div>

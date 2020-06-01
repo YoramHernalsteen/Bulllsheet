@@ -8,15 +8,15 @@ INSERT INTO production_company (id, name, adres, zipcode, city, phonenumber)
 values (nextval('production_company_seq'),'Woestijnvis', 'Bergstraat 44', '3000', 'Brussel', '048326225');
 
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
-values (nextval('user_seq'),'admin', '7b2437df3fa61f68dcb81e5e0eac61eb31ff670d0143803f6a6c784f0e77905', 'admin', 'admin', 'Crew', 'Acteur', 'admin', '046572225', 'admin');
+values (nextval('user_seq'),'admin', '7b2437df3fa61f68dcb81e5e0eac61eb31ff670d0143803f6a6c784f0e77905', 'admin', 'admin', 'Crew', 'Acteur', 'admin', '0465722253', 'admin');
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
-values (nextval('user_seq'),'gebruiker1', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Dirk', 'Dirkinson', 'Crew', 'Acteur', 'dirk@spetnzas.be', '046572225', 'user');
+values (nextval('user_seq'),'gebruiker1', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Dirk', 'Dirkinson', 'Crew', 'Acteur', 'dirk@spetnzas.be', '0465722254', 'user');
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
-values (nextval('user_seq'),'jw', '67dfd02ee45015bcc326201428e99ded7cada27ad6c71870b5b8b9d8dea5620d', 'Jan-Willem', 'Dirkinson', 'Crew', 'Acteur', 'dirk@spetnzas.be', '046572225', 'admin');
+values (nextval('user_seq'),'jw', '67dfd02ee45015bcc326201428e99ded7cada27ad6c71870b5b8b9d8dea5620d', 'Jan-Willem', 'Lemmens', 'Crew', 'Acteur', 'janwillemlemmens@hotmail.com', '0465722256', 'admin');
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
 values (nextval('user_seq'),'yorne', '1e4497ca50b92cbcdfca22ee87e6154ace27a213fa193bd135343b571cf13d', 'Yorne', 'Thys', 'Crew', 'Camera', 'yorne.thys@gmail.com', '049524986', 'admin');
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
-values (nextval('user_seq'),'gebruiker2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Jef', 'Jefferson', 'Crew', 'Acteur', 'jef@spetnzas.be', '046572225', 'user');
+values (nextval('user_seq'),'gebruiker2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Jef', 'Jefferson', 'Crew', 'Acteur', 'jef@spetnzas.be', '0465722250', 'user');
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
 values (nextval('user_seq'),'willem', '9fe6cbb9e933ad0b8b4fa94066474e091ee8be696c224b1c1678fcec5a1885cb', 'Willem', 'Teughels', 'Crew', 'Director', 'willemteughels@gmail.com', '0495249719', 'admin');
 INSERT INTO user (id, username, password, first_name, last_name, function, job_title, email, phone_number, user_restrictions)
