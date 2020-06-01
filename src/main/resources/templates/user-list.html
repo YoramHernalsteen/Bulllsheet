@@ -1,0 +1,181 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Your Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script th:src="@{/js/dynamicForm.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="row">
+    <nav class="col text-center nav-bg">
+        <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+        <a class="btn btn-nav" href="/">Home</a>
+    </nav>
+</header>
+<div class="container">
+    <div class="mt-2">
+        <h2>Actors</h2>
+        <hr>
+        <ul>
+            <li th:each="actor:${actors}">
+                <div class="row">
+                    <div class="col-1">
+                        <p th:text="${actor.getId()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${actor.getFirstName()} + ' ' + ${actor.getLastName()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${actor.getFunction()} + ' - ' + ${actor.getJobTitle()}"></p>
+                    </div>
+                    <div class="col-3">
+                        <p th:text="${actor.getEmail()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${actor.getPhoneNumber()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="'User-group: ' + ${actor.getUserRestrictions()}"></p>
+                    </div>
+                    <div class="col">
+                        <a th:href="'/user-list/edit-user/' + ${actor.getId()}">Edit user</a>  
+                    </div>
+                </div>
+                <br>
+            </li>
+        </ul>
+
+        <h2>Sound-operators</h2>
+        <hr>
+        <ul>
+            <li th:each="sound:${sounds}">
+                <div class="row">
+                    <div class="col-1">
+                        <p th:text="${sound.getId()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${sound.getFirstName()} + ' ' + ${sound.getLastName()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${sound.getFunction()} + ' - ' + ${sound.getJobTitle()}"></p>
+                    </div>
+                    <div class="col-3">
+                        <p th:text="${sound.getEmail()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${sound.getPhoneNumber()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="'User-group: ' + ${sound.getUserRestrictions()}"></p>
+                    </div>
+                    <div class="col">
+                        <a th:href="'/user-list/edit-user/' + ${sound.getId()}">Edit user</a>  
+                    </div>
+                </div>
+                <br>
+            </li>
+        </ul>
+        
+        <h2>Camera-operators</h2>
+        <hr>
+        <ul>
+            <li th:each="cam:${cameras}">
+                <div class="row">
+                    <div class="col-1">
+                        <p th:text="${cam.getId()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${cam.getFirstName()} + ' ' + ${cam.getLastName()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${cam.getFunction()} + ' - ' + ${cam.getJobTitle()}"></p>
+                    </div>
+                    <div class="col-3">
+                        <p th:text="${cam.getEmail()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${cam.getPhoneNumber()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="'User-group: ' + ${cam.getUserRestrictions()}"></p>
+                    </div>
+                    <div class="col">
+                        <a th:href="'/user-list/edit-user/' + ${cam.getId()}">Edit user</a>  
+                    </div>
+                </div>
+                <br>
+            </li>
+        </ul>
+
+        <h2>Producers</h2>
+        <hr>
+        <ul>
+            <li th:each="prod:${producers}">
+                <div class="row">
+                    <div class="col-1">
+                        <p th:text="${prod.getId()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${prod.getFirstName()} + ' ' + ${prod.getLastName()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${prod.getFunction()} + ' - ' + ${prod.getJobTitle()}"></p>
+                    </div>
+                    <div class="col-3">
+                        <p th:text="${prod.getEmail()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${prod.getPhoneNumber()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="'User-group: ' + ${prod.getUserRestrictions()}"></p>
+                    </div>
+                    <div class="col">
+                        <a th:href="'/user-list/edit-user/' + ${prod.getId()}">Edit user</a>  
+                    </div>
+                </div>
+                <br>
+            </li>
+        </ul>
+
+        <h2>Directors</h2>
+        <hr>
+        <ul>
+            <li th:each="dir:${directors}">
+                <div class="row">
+                    <div class="col-1">
+                        <p th:text="${dir.getId()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${dir.getFirstName()} + ' ' + ${dir.getLastName()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${dir.getFunction()} + ' - ' + ${dir.getJobTitle()}"></p>
+                    </div>
+                    <div class="col-3">
+                        <p th:text="${dir.getEmail()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="${dir.getPhoneNumber()}"></p>
+                    </div>
+                    <div class="col">
+                        <p th:text="'User-group: ' + ${dir.getUserRestrictions()}"></p>
+                    </div>
+                    <div class="col">
+                        <a th:href="'/user-list/edit-user/' + ${dir.getId()}">Edit user</a>  
+                    </div>
+                </div>
+                <br>
+            </li>
+        </ul>
+    </div>
+    
+</div>
+
+</body>
+</html>

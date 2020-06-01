@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#sortable").sortable();
+            $("#sortable").disableSelection();
+        });
+    </script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css/}" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container" id="page-content">
+    <div class="list list-row card" id="sortable" data-sortable-id="0" aria-dropeffect="move">
+        <div class="list-item" data-id="0" data-item-sortable-id="0" draggable="true" role="option"
+             aria-grabbed="false" style="">
+            <div class="card-header" id="headingOne">
+                <a data-toggle="collapse" data-target="#collapseOne">
+                    <h3 data-abc="true">Patrick Linod</h3>
+                </a>
+            </div>
+        </div>
+        <div id="collapseOne" class="collapse">
+            <div class="card-body">For what reason would it be advisable for me to
+                think about business content?
+            </div>
+        </div>
+        <div class="list-item" data-id="2" data-item-sortable-id="0" draggable="true" role="option"
+             aria-grabbed="false" style="">
+            <div class="card-header" id="headingTwo">
+                <a data-toggle="collapse" data-target="#collapseTwo">
+                    <h3 data-abc="true">Patrick Linod</h3>
+                </a>
+            </div>
+        </div>
+        <div id="collapseTwo" class="collapse">
+            <div class="card-body">For what reason would it be advisable for me to
+                think about business content?
+            </div>
+        </div>
+
+        <div class="list-item" data-id="3" data-item-sortable-id="0" draggable="true" role="option"
+             aria-grabbed="false" style="">
+            <div class="card-header" id="headingThree">
+                <a data-toggle="collapse" data-target="#collapseThree">
+                    <h3 data-abc="true">Patrick Linod</h3>
+                </a>
+            </div>
+        </div>
+        <div id="collapseThree" class="collapse">
+            <div class="card-body">For what reason would it be advisable for me to
+                think about business content?
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

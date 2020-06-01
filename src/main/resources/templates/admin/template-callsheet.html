@@ -1,0 +1,328 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Callsheet Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script th:src="@{/js/dynamicForm.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:unless="${adminPowers}">
+    <h1>You Shall not pass!! Or see this page!!</h1>
+    <a href="/">Home</a>
+</div>
+
+<div th:if="${adminPowers}">
+    <header class="row">
+        <nav class="col text-center nav-bg">
+            <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+            <a class="btn btn-primary" href="/">Home</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#productionInfo"
+                                            class="nav-link active tabLook">Productieinfo</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#cast" class="nav-link tabLook">Cast</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#crew" class="nav-link tabLook">Crew</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#location"
+                                            class="nav-link tabLook">Hoofdlocatie</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#extraLocation"
+                                            class="nav-link tabLook">Extra locaties</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#planning" class="nav-link tabLook">Opnameplanning</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#material"
+                                            class="nav-link tabLook">Materiaal</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" role="tab" href="#submit" class="nav-link tabLook">Callsheet
+                        indienen</a>
+                    </li>
+                </ul>
+                <div>
+                    <form class="tab-content" method="post" id="myForm">
+                        <div class="tab-pane active" id="productionInfo">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col-6">Datum callsheet</th>
+                                    <th class="col-6">crewcall</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="row">
+                                    <p class="col-12 font-weight-bold">Opgepast, de datum is al aangepast ten opzichte van de template die je gebruikt! De volgende dag is hier al gekozen om het maken van callsheets van opeenvolgende dagen makkelijker te maken.</p>
+                                    <td class="col-6"><input type="date" id="callsheetDate" name="callsheetDate"
+                                                             th:value="${correctedDate}"
+                                                             class="w-100 form-control">
+                                    </td>
+                                    <td class="col-2"><input type="time" id="callsheetTime" name="callsheetTime"
+                                                             th:value="${callsheet.getCalltime()}"
+                                                             class="w-100 form-control"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="cast">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col-2">Functie</th>
+                                    <th class="col-3">Naam</th>
+                                    <th class="col">Telefoonnummer</th>
+                                    <th class="col-3">Email</th>
+                                    <th class="col">Call</th>
+                                    <th class="col-1">Verwijder</th>
+                                </tr>
+                                </thead>
+                                <tbody id="castJS">
+                                <tr class="row" th:each="ict:${castICT}">
+                                    <td class="col-2"><input type="text" th:value="${ict.user.getJobTitle()}"
+                                                             class="w-100 form-control" th:name="cast+${ict.id}"></td>
+                                    <td class="col-3"><input type="text"
+                                                             th:value="${ict.user.getFirstName()} + ' '+ ${ict.user.getLastName()}"
+                                                             class="w-100 form-control" th:name="cast+${ict.id}"></td>
+                                    <td class="col"><input type="text" th:value="${ict.user.getPhoneNumber()}"
+                                                           class="w-100 form-control" th:name="cast+${ict.id}"></td>
+                                    <td class="col-3"><input type="email" th:value="${ict.user.getEmail()}"
+                                                             class="w-100 form-control" th:name="cast+${ict.id}"></td>
+                                    <td class="col"><input type="time" th:value="${ict.calltime}"
+                                                           class="w-100 form-control" th:name="cast+${ict.id}"></td>
+                                    <td class="col-1">
+                                        <button class="btn-primary w-100 form-control deleteRow">-</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary mb-3" onclick="addRowCastEditCallsheet()">
+                                <b>+</b></button>
+                        </div>
+                        <div class="tab-pane" id="crew">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col-2">Functie</th>
+                                    <th class="col-3">Naam</th>
+                                    <th class="col">Telefoonnummer</th>
+                                    <th class="col-3">Email</th>
+                                    <th class="col">Call</th>
+                                    <th class="col-1">Verwijder</th>
+                                </tr>
+                                </thead>
+                                <tbody id="crewJS">
+                                <tr class="row" th:each="ict:${crewICT}">
+                                    <td class="col-2"><input type="text" th:value="${ict.user.getJobTitle()}"
+                                                             class="w-100 form-control" th:name="crew+${ict.id}"></td>
+                                    <td class="col-3"><input type="text"
+                                                             th:value="${ict.user.getFirstName()} + ' '+ ${ict.user.getLastName()}"
+                                                             class="w-100 form-control" th:name="crew+${ict.id}"></td>
+                                    <td class="col"><input type="text" th:value="${ict.user.getPhoneNumber()}"
+                                                           class="w-100 form-control" th:name="crew+${ict.id}"></td>
+                                    <td class="col-3"><input type="email" th:value="${ict.user.getEmail()}"
+                                                             class="w-100 form-control" th:name="crew+${ict.id}"></td>
+                                    <td class="col"><input type="time" th:value="${ict.calltime}"
+                                                           class="w-100 form-control" th:name="crew+${ict.id}"></td>
+                                    <td class="col-1">
+                                        <button class="btn-primary w-100 form-control deleteRow">-</button>
+                                    </td>
+                                    <td class="col-12"><input type="text" th:value="${ict.id}"
+                                                              class="w-100 form-control" th:name="crew+${ict.id}"
+                                                              hidden></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary mb-3" onclick="addRowCrewEditCallsheet()">
+                                <b>+</b></button>
+                        </div>
+
+
+                        <div class="tab-pane" id="location">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col-3">Plaatsnaam</th>
+                                    <th class="col-4">Adres</th>
+                                    <th class="col-1">Postcode</th>
+                                    <th class="col-2">Stad</th>
+                                    <th class="col-2">Type locatie</th>
+                                    <th class="col-12">Exra informatie</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="row">
+                                    <td class="col-3"><input type="text"
+                                                             th:value="${callsheet.getShootingLocation().name}"
+                                                             class="w-100 form-control" name="mainLocation"></td>
+                                    <td class="col-4"><input type="text"
+                                                             th:value="${callsheet.getShootingLocation().adres}"
+                                                             class="w-100 form-control" name="mainLocation"></td>
+                                    <td class="col-1"><input type="text"
+                                                             th:value="${callsheet.getShootingLocation().zipcode}"
+                                                             class="w-100 form-control" name="mainLocation"></td>
+                                    <td class="col-2"><input type="text"
+                                                             th:value="${callsheet.getShootingLocation().city}"
+                                                             class="w-100 form-control" name="mainLocation"></td>
+                                    <td class="col-2"><input type="text"
+                                                             th:value="${callsheet.getShootingLocation().type}"
+                                                             class="w-100 form-control" name="mainLocation"></td>
+                                    <td class="col-12"><input type="text"
+                                                              th:value="${callsheet.getShootingLocation().extraInfo}"
+                                                              class="w-100 form-control" name="mainLocation"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="extraLocation">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col-3">Plaatsnaam</th>
+                                    <th class="col-3">Adres</th>
+                                    <th class="col-1">Postcode</th>
+                                    <th class="col-2">Stad</th>
+                                    <th class="col-2">Type locatie</th>
+                                    <th class="col-1">Verwijder</th>
+                                    <th class="col-12">Exra informatie</th>
+                                </tr>
+                                </thead>
+                                <tbody id="locationJS">
+                                <tr class="row" th:each="location:${callsheet.additionalLocations}">
+                                    <td class="col-3"><input type="text" th:value="${location.name}"
+                                                             class="w-100 form-control"
+                                                             th:name="extraLocation+${location.id}"></td>
+                                    <td class="col-3"><input type="text" th:value="${location.adres}"
+                                                             class="w-100 form-control"
+                                                             th:name="extraLocation+${location.id}"></td>
+                                    <td class="col-1"><input type="text"
+                                                             th:value="${location.zipcode}"
+                                                             class="w-100 form-control"
+                                                             th:name="extraLocation+${location.id}"></td>
+                                    <td class="col-2"><input type="text" th:value="${location.city}"
+                                                             class="w-100 form-control"
+                                                             th:name="extraLocation+${location.id}"></td>
+                                    <td class="col-2"><input type="text" th:value="${location.type}"
+                                                             class="w-100 form-control"
+                                                             th:name="extraLocation+${location.id}"></td>
+                                    <td class="col-1">
+                                        <button class="btn-primary w-100 form-control deleteRow">-</button>
+                                    </td>
+                                    <td class="col-12"><input type="text" th:value="${location.extraInfo}"
+                                                              class="w-100 form-control"
+                                                              th:name="extraLocation+${location.id}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary mb-3" onclick="addRowLocationsEditCallsheet()">
+                                <b>+</b></button>
+                        </div>
+                        <div class="tab-pane" id="planning">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col">Start</th>
+                                    <th class="col">Einde</th>
+                                    <th class="col-3">Locatie</th>
+                                    <th class="col-5">Beschrijving</th>
+                                    <th class="col-1">Verwijder</th>
+                                </tr>
+                                </thead>
+                                <tbody id="planningJS">
+                                <tr class="row" th:each="planning:${planning}">
+                                    <td class="col"><input type="time" th:value="${planning.timeStart}"
+                                                           class="w-100 form-control"
+                                                           th:name="planningRow+${planning.id}"></td>
+                                    <td class="col"><input type="time" th:value="${planning.timeEnd}"
+                                                           class="w-100 form-control"
+                                                           th:name="planningRow+${planning.id}"></td>
+                                    <td class="col-3"><input type="text" th:value="${planning.location}"
+                                                             class="w-100 form-control"
+                                                             th:name="planningRow+${planning.id}"></td>
+                                    <td class="col-5"><input type="text" th:value="${planning.description}"
+                                                             class="w-100 pb-5 mb-5 form-control"
+                                                             th:name="planningRow+${planning.id}"></td>
+
+                                    <td class="col-1">
+                                        <button class="btn-primary w-100 form-control deleteRow">-</button>
+                                    </td>
+                                    <td class="col-12"><input type="text" th:value="${planning.id}"
+                                                              class="w-100 form-control"
+                                                              th:name="planningRow+${planning.id}" hidden></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary mb-3" onclick="newRowPlanningEditCallsheet()">
+                                <b>+</b></button>
+                        </div>
+                        <div class="tab-pane" id="material">
+                            <table width="100%" class="table table-striped">
+                                <thead class="thead-dark">
+                                <tr class="row">
+                                    <th class="col-2">Type</th>
+                                    <th class="col-2">Naam</th>
+                                    <th class="col-7">Specificaties</th>
+                                    <th class="col-1">Verwijder</th>
+                                </tr>
+                                </thead>
+                                <tbody id="materialsJS">
+                                <tr class="row" th:each="equipmentObject:${equipment}">
+                                    <td class="col-2"><input type="text" th:value="${equipmentObject.type}"
+                                                             class="w-100 form-control"
+                                                             th:name="equipment+${equipmentObject.id}"></td>
+                                    <td class="col-2"><input type="text" th:value="${equipmentObject.name}"
+                                                             class="w-100 form-control"
+                                                             th:name="equipment+${equipmentObject.id}"></td>
+                                    <td class="col-7"><input type="text" th:value="${equipmentObject.specifications}"
+                                                             class="w-100 form-control"
+                                                             th:name="equipment+${equipmentObject.id}"></td>
+                                    <td class="col-1">
+                                        <button class="btn-primary w-100 form-control deleteRow">-</button>
+                                    </td>
+                                    <td class="col-12"><input type="text" th:value="${equipmentObject.id}"
+                                                              class="w-100 form-control"
+                                                              th:name="equipment+${equipmentObject.id}" hidden></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary mb-3" onclick="addRowMaterialsEditCallsheet()">
+                                <b>+</b></button>
+                        </div>
+                        <div class="tab-pane" id="submit">
+                            <br>
+                            <input type="submit" id="submitbutton" name="Dien callsheet in"
+                                   class="w-25 btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Jquery script-->
+    <script>
+        $('.table tbody').on('click', '.deleteRow', function () {
+            $(this).closest('tr').remove();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#planningJS" ).sortable();
+            $( "#planningJS" ).disableSelection();
+        } );
+    </script>
+</div>
+</body>
+</html>

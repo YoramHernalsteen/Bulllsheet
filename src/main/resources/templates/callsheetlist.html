@@ -1,0 +1,104 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All the production callsheets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">    
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<h1 th:unless="${production}" class="top">No valid production was selected</h1>
+
+
+<nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
+    <div class=" container">
+        <a class="navbar-brand" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse"
+                data-target="#navbarBull"
+                aria-controls="navbarBull" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarBull">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item" th:if="${production}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/compactCallsheet/${production.getId()}|">Overview</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${activeCallsheetId}">
+                    <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${activeCallsheetId-1}|">Callsheet</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/admin/new-callsheet/${production.getId()}|">New Callsheet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/callsheetlist/${production.getId()}|">Callsheets list</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/user-list/|">User-List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div th:if="${production}">
+    <div class="container top">
+        <div class="row">
+            <div class="col">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-3">
+                            <p>Zoek op datum:</p>
+                            <input type="date" class="form-control form-width" id="searchDate" name="searchDate"
+                                   th:value="${searchDate}">
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="form-group col">
+                            <p>Zoek tussen data bereik:</p>
+                            <input type="date" class="form-control float-left form-width" id="searchDateStart" name="searchDateStart"
+                                   th:value="${searchDateStart}">
+                            <h3 class="float-left pl-2 pr-2"> - </h3>
+                            <input type="date" class="form-control float-left form-width" id="searchDateEnd" name="searchDateEnd"
+                                   th:value="${searchDateEnd}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col float-right">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a type="button" class="btn btn-primary"
+                               th:href="|/callsheetlist/${production.getId()}|">Clear
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <h1 th:text="|Callsheet list of production: ${production.getName()}|">production name</h1>
+            <ul>
+                <li th:each="callsheet:${callsheets}">
+                    <a class="h5" th:href="|/callsheet/${callsheet.getId()}|" th:text="${callsheet.getDate()}+' - '+${callsheet.getShootingLocation().getCity()}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

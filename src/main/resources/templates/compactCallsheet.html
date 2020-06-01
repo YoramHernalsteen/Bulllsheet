@@ -1,0 +1,264 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">    
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
+    <div class=" container">
+        <a class="navbar-brand" href="/">
+            <img src="/img/BullSheets_logo.png" height="60">
+            <h1 id="navbarProdName" th:text=" ${production.getName()}"></h1>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse"
+                data-target="#navbarBull"
+                aria-controls="navbarBull" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarBull">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a th:if="${callsheet}" class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/compactCallsheet/${production.getId()}|">Overview</a>
+                    <a th:unless="${callsheet}" class="nav-link m-2 btn btn-nav float-right" href="#">Overview</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${callsheet}">
+                    <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${callsheet.getId()}|">Callsheet</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/admin/new-callsheet/${production.getId()}|">New Callsheet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/callsheetlist/${production.getId()}|">Callsheets list</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/user-list/|">User-List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1 class="top" th:unless="${callsheet}">Er zijn geen callsheets voor de komende week voor deze productie</h1>
+<div th:if="${callsheet}" class="top">
+    <div class="container">
+        <br>
+        <div id="callsheetDate">
+            <h2 th:unless="${sameDateCallsheet}" class="text-danger">Dit is een aankomende callsheet en is niet van
+                vandaag!</h2>
+            <h1 th:text="|Datum vandaag: ${currentDate}|"></h1>
+            <h1 th:text="|Callsheet datum: ${callsheet.getDate()}|"></h1>
+
+        </div>
+        <br>
+
+        <div class="container" id="page-content">
+            <div class="list list-row card pageContent" id="sortable" data-sortable-id="0" aria-dropeffect="move">
+                <div class="list-item" id="1" data-id="0" data-item-sortable-id="0" draggable="true" role="option"
+                     aria-grabbed="false" style="">
+                    <div class="card-header justify-content-center text-uppercase pb-0" id="headingOne" style="text-align: center;">
+                        <a data-toggle="collapse" data-target="#collapseOne">
+                            <div th:if="${activeRow}">
+                                <p>Momenteel bezig:</p>
+                                <li th:each="agenda:${planning}">
+                                    <p th:if="${agenda.getId().equals(activeRow.getId())}"
+                                       th:text="${agenda.description} +' @ '+ ${agenda.location}">agendapunt</p>
+                                    <a th:unless="${activeRow}"
+                                       th:text="${agenda.timeStart}+'-'+${agenda.timeEnd}+': '+${agenda.description}+' @ '+${agenda.location}">agendapunt</a>
+                                </li>
+                            </div>
+                            <div th:unless="${activeRow}">
+                                <p>Er is momenteel geen actieve planning</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="collapseOne" class="collapse">
+                        <div class="card-body">
+                            <ul>
+                                <li th:each="agenda:${planning}">
+                                    <p th:if="${activeRow}"
+                                       th:class="${agenda.getId().equals(activeRow.getId())} ? activePlanning : ''"
+                                       th:text="${agenda.timeStart} + '-' + ${agenda.timeEnd} +':' ">agendapunt</p>
+                                    <p th:if="${activeRow}"
+                                       th:class="${agenda.getId().equals(activeRow.getId())} ? activePlanning : ''"
+                                       th:text="${agenda.description} +' @ '+ ${agenda.location}">agendapunt</p>
+                                    <p th:unless="${activeRow}"
+                                       th:text="${agenda.timeStart}+'-'+${agenda.timeEnd} +':' ">agendapunt</p>
+                                    <p th:unless="${activeRow}"
+                                       th:text="${agenda.description} +' @ '+ ${agenda.location}">agendapunt</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item" id="2" data-id="2" data-item-sortable-id="0" draggable="true" role="option"
+                     aria-grabbed="false" style="">
+                    <div class="card-header pb-0" id="headingTwo" style="text-align: center;">
+                        <a data-toggle="collapse" data-target="#collapseTwo">
+                            <div class="weather-container">
+                                <div class="weather-icon">
+                                    <img src="/icons/unknown.png" alt="">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="collapseTwo" class="collapse" style="text-align: center;">
+                        <div class="card-body">
+                            <div class="notification"></div>
+                            <div class="weather-container">
+                                <div class="temperature-value">
+                                    <p>- °<span>C</span></p>
+                                </div>
+                                <div class="temperature-description">
+                                    <p> - </p>
+                                </div>
+                                <div class="location">
+                                    <p>-</p>
+                                </div>
+                            </div>
+                            <p id="city" th:text="${callsheet.getShootingLocation().getCity()}"
+                               style="display: none"></p>
+                            <script th:src="@{/js/app.js}"></script>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item" id="3" data-id="3" data-item-sortable-id="0" draggable="true" role="option"
+                     aria-grabbed="false" style="">
+                    <div class="card-header text-uppercase pb-0" id="headingThree" style="text-align: center;">
+                        <a data-toggle="collapse" data-target="#collapseThree">
+                            <p th:text="${callsheet.getShootingLocation().getAdres()}">*fetching adres from input*</p>
+                            <p th:text="${callsheet.getShootingLocation().getZipcode()}+', '+${callsheet.getShootingLocation().getCity()}"></p>
+                        </a>
+                    </div>
+
+                    <div id="collapseThree" class="collapse" style="text-align: center;">
+                        <div class="card-body">
+                            <a th:href="${wazeurl}" target="_blank"><img src="/img/Waze_icon.png" height="60"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item" id="4" data-id="4" data-item-sortable-id="0" draggable="true" role="option"
+                     aria-grabbed="false" style="">
+                    <div class="card-header text-uppercase pb-0" id="headingFour">
+                        <a data-toggle="collapse" data-target="#collapseFour" style="text-align: center;">
+                            <p>Materiaal</p>
+                        </a>
+                    </div>
+
+                    <div id="collapseFour" class="collapse">
+                        <div class="card-body">
+                            <ul>
+                                <li th:each="materiaal:${equipment}">
+                                    <a th:text="${materiaal.getType()}+': '+${materiaal.getName()}">materiaal</a><br>
+                                    <a th:text="'     '+${materiaal.getSpecifications()}">specificaties</a>
+                                    <br><br>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item" id="5" data-id="5" data-item-sortable-id="0" draggable="true" role="option"
+                     aria-grabbed="false" style="">
+                    <div class="card-header text-uppercase pb-0" id="headingFive">
+                        <a data-toggle="collapse" data-target="#collapseFive" style="text-align: center;">
+                            <p class="mb-0">Contact gegevens:</p>
+                            <p th:text="${callsheet.getProductionCompany().getName()}"></p>
+                        </a>
+                    </div>
+
+                    <div id="collapseFive" class="collapse">
+                        <div class="card-body">
+                            <p th:text="${callsheet.getProductionCompany().getAdres()}"></p>
+                            <p th:text="${callsheet.getProductionCompany().getZipcode()}+', '+${callsheet.getProductionCompany().getCity()}"></p>
+                            <p th:text="'Tel: '+${callsheet.getProductionCompany().getPhonenumber()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <div class="card rounded shadow shadow-sm">
+                            <div class="card-header">
+                                <h3 class="mb-0">BullSheet Preview Chat</h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="messages" class="messages" style="max-height: 240px;">
+
+                                </div>
+                                <hr>
+                                <form id="sendM" name="sendM">
+                                    <input type="text" id="message" autocomplete="off"/>
+                                    <button type="submit" class="btn btn-primary btn-sm">Send</button>
+                                </form>
+                                <hr>
+                                <p>your name: <b id="username" th:utext="${username}"></b> - <a th:href="@{/logout}">disconnect</a>
+                                </p>
+                                <script th:src="@{/js/chat.js}"></script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<footer>
+    <div class="text-center p-2">
+        <a href="https://sennmaes.wixsite.com/bullsheets" class="p-2"><i class="far fa-copyright"></i> BULLSHEETS</a>
+        <p class="font-italic pt-2">Cut the bullshit</p>
+    </div>
+</footer>
+
+<script>
+    $(function () {
+        $("#sortable").sortable({
+            update: function () {
+                let order = $("#sortable").sortable('toArray');
+                localStorage.setItem("pageContent", JSON.stringify(order));
+            }
+        });
+        $("#sortable").disableSelection();
+    });
+
+    let savedOrder = JSON.parse(localStorage.getItem('pageContent'));
+
+    if (savedOrder) {
+        let sortableItems = savedOrder.map((s) => $(`#${s}`));
+        $("#sortable").append(sortableItems);
+    }
+</script>
+
+</body>
+</html>

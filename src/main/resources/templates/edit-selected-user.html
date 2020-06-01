@@ -1,0 +1,74 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Your Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css/}" href="../css/bootstrap.min.css">
+    <script th:src="@{/js/dynamicForm.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="row">
+    <nav class="col text-center nav-bg">
+        <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+        <a class="nav-item btn btn-nav" href="/">Home</a>
+    </nav>
+</header>
+<div class="container pt-3">
+    <div class="mt-2">
+        <h2 th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></h2>
+        <br>
+        <form method="post" class="needs-validation" novalidate>
+            <div class="form-group col popup">
+                <label for="function" style="width: 120px;">Function: </label>
+                <p style="display: none" th:text="${user.getFunction()}" id="originalFunction"></p>
+                <select class="custom-select" id="function" name="function" style="max-width: 200px;" required>
+                    <option selected th:text="${user.getFunction()}" th:value="${user.getFunction()}"></option>
+                    <option value="Crew">Crew</option>
+                    <option value="Cast">Cast</option>
+                </select>
+                <div class="invalid-feedback">
+                    Function cannot be set empty!
+                </div>
+            </div>
+            <div class="form-group col">
+                <label for="jobTitle" style="width: 120px;">Job-title: </label>
+                <p style="display: none" th:text="${user.getJobTitle()}" id="originalJobTitle"></p>
+                <select class="custom-select" id="jobTitle" name="jobTitle" style="max-width: 200px;" required>
+                    <option selected th:text="${user.getJobTitle()}" th:value="${user.getJobTitle()}"></option>
+                    <option value="Acteur">Acteur</option>
+                    <option value="Geluid">Geluid</option>
+                    <option value="Producer">Producer</option>
+                    <option value="Director">Director</option>
+                </select>
+                
+                <div class="invalid-feedback">
+                    Job title cannot be set empty!
+                </div>
+            </div>
+
+            <div class="form-group col">
+                <label for="userGroup" style="width: 120px;">User-group: </label>
+                <p style="display: none" th:text="${user.getUserRestrictions()}" id="originalJobTitle"></p>
+                <select class="custom-select" id="userGroup" name="userGroup" style="max-width: 200px;" required>
+                    <option selected th:text="${user.getUserRestrictions()}" th:value="${user.getUserRestrictions()}"></option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                
+                <div class="invalid-feedback">
+                    Job title cannot be set empty!
+                </div>
+            </div>
+            <br>
+            <input class="btn btn-primary mr-5" style="width: 150px;" type="submit" value="Edit" name="submit">
+            <input class="btn btn-danger ml-4" type="submit" value="Delete User" name="submit">
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

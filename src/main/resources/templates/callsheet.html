@@ -1,0 +1,346 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Callsheet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">    
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
+    <script th:src="@{/js/dynamicForm.js}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+<body class="noMobile">
+
+<nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/img/BullSheets_logo.png" height="60">
+            <h1 id="navbarProdName" th:text=" ${callsheet.getProduction().getName()}"></h1>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse"
+                data-target="#navbarBull"
+                aria-controls="navbarBull" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarBull">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/compactCallsheet/${callsheet.getProduction().getId()}|">Overview</a>
+                </li>
+                <li th:if="${adminPowers}" class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${callsheet.getId()}|">Callsheet</a>
+                </li>
+                <li th:if="${adminPowers}" class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/admin/new-callsheet/${callsheet.getProduction().getId()}|">New Callsheet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/callsheetlist/${callsheet.getProduction().getId()}|">Callsheets list</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/user-list/|">User-List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container top">
+    <div class="mt-2">
+        <div class="float-left">
+            <h1 th:text="${callsheet.getProductionCompany().getName()}">Callsheet from db test</h1>
+        </div>
+        <div class="row">
+            <div class="col-5 offset-7 mb-3">
+                <button class="btn btn-primary w-100 text-left knop"><a th:if="${adminPowers}"
+                                                                        th:href="|/admin/edit-callsheet/${callsheet.getId()}|"
+                                                                        class="knopLink">Pas deze callsheet aan</a>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 offset-7">
+                <button class="btn btn-primary w-100 text-left knop"><a th:if="${adminPowers}"
+                                                                        th:href="|/admin/template-callsheet/${callsheet.getId()}|"
+                                                                        class="knopLink">Nieuwe
+                    callsheet met dit template</a></button>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+    <section id="callsheet">
+        <div class="container">
+            <div id="head" class="row">
+                <div class="col">
+                    <p th:text="${callsheet.getProductionCompany().getName()}">productiehuis</p>
+                    <p th:text="${callsheet.getProductionCompany().getAdres()}">adres</p>
+                    <p th:text="${callsheet.getProductionCompany().getZipcode()}+', '+${callsheet.getProductionCompany().getCity()}">
+                        postcode + stad</p><br>
+                    <a th:href="${wazeurl}" target="_blank"><img src="/img/Waze_icon.png" height="50"></a>
+                    <p th:text="'Tel. '+${callsheet.getProductionCompany().getPhonenumber()}">tel.</p>
+                </div>
+                <div class="col">
+                    <div class="row borderLook logo">
+                        <h1 class="center text-uppercase pt-5"
+                            th:text="${callsheet.getProduction().getName()}"></h1>
+                    </div>
+                    <div class="row">
+                        <br><br>
+                        <h4 class="text-center" th:text="${correctedDate}">Production date</h4>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container text-center">
+                        <div class="notification"></div>
+                        <div class="weather-container">
+                            <div class="weather-icon">
+                                <img src="/icons/unknown.png" alt="">
+                            </div>
+                            <div class="temperature-value">
+                                <p>- °<span>C</span></p>
+                            </div>
+                            <div class="temperature-description">
+                                <p> - </p>
+                            </div>
+                            <div class="location">
+                                <p>-</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="city" th:text="${callsheet.getShootingLocation().getCity()}" style="display: none"></p>
+                    <script th:src="@{/js/app.js}"></script>
+                </div>
+            </div>
+
+            <div id="location">
+                <div class="row border-bottom"><h4>Locatie:</h4></div>
+                <div class="row">
+                    <div class="col-3">
+                        <h6>SET LOCATIE</h6>
+                    </div>
+                    <div class="col-6">
+                        <h6>PARKING & OPMERKINGEN</h6>
+                    </div>
+                    <div class="col-3">
+                        <h6>DICHTSBIJZIJNDE ZIEKENHUIS</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <p th:text="${callsheet.getShootingLocation().getName()}">locatie</p>
+                        <p th:text="${callsheet.getShootingLocation().getAdres()}">straat</p>
+                        <p th:text="${callsheet.getShootingLocation().getZipcode()}+', '+${callsheet.getShootingLocation().getCity()}">
+                            adres</p>
+                    </div>
+                    <div class="col-6">
+                        <a>notes</a>
+                    </div>
+                    <div class="col-3">
+                        <a>ziekenhuis</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="crew" class="crew">
+                <div class="row border-bottom"><h4>Crew:</h4></div>
+                <div>
+                    <table width="100%">
+                        <tr class="row">
+                            <th class="col-2"><h6>FUNCTIE</h6></th>
+                            <th class="col-3"><h6>NAAM</h6></th>
+                            <th class="col-2"><h6>TELEFOON</h6></th>
+                            <th class="col-3"><h6>MAIL</h6></th>
+                            <th class="col-2"><h6>CALL</h6></th>
+                        </tr>
+                        <tr class="row" th:each="crew:${crew}">
+                            <td class="col-2" th:text="${crew.getJobTitle()}">functie</td>
+                            <td class="col-3" th:text="${crew.getFirstName()}+' '+${crew.getLastName()}">naam</td>
+                            <td class="col-2" th:text="${crew.getPhoneNumber()}">tel.</td>
+                            <td class="col-3" th:text="${crew.getEmail()}">e-mail</td>
+                            <td class="col-2" th:each="calltime:${calltimes}"
+                                th:if="(${crew.getId()} eq ${calltime.getUser().getId()})"
+                                th:text="${calltime.getCalltime()}">call time
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div id="cast" class="cast">
+                <div class="row border-bottom"><h4>Cast:</h4></div>
+                <div>
+                    <table width="100%">
+                        <tr class="row">
+                            <th class="col-2"><h6>FUNCTIE</h6></th>
+                            <th class="col-3"><h6>NAAM</h6></th>
+                            <th class="col-2"><h6>TELEFOON</h6></th>
+                            <th class="col-3"><h6>MAIL</h6></th>
+                            <th class="col-2"><h6>CALL</h6></th>
+                        </tr>
+                        <tr class="row" th:each="cast:${casting}">
+                            <td class="col-2" th:text="${cast.getJobTitle()}">functie</td>
+                            <td class="col-3" th:text="${cast.getFirstName()}+' '+${cast.getLastName()}">naam</td>
+                            <td class="col-2" th:text="${cast.getPhoneNumber()}">tel.</td>
+                            <td class="col-3" th:text="${cast.getEmail()}">e-mail</td>
+                            <td class="col-2" th:each="calltime:${calltimes}"
+                                th:if="(${cast.getId()} eq ${calltime.getUser().getId()})"
+                                th:text="${calltime.getCalltime()}">call time
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div id="planning">
+                <div class="row border-bottom"><h4>Opnameplanning:</h4></div>
+                <div>
+                    <table width="100%">
+                        <tr class="row">
+                            <td class="col-2" colspan="2"><h6>UUR</h6></td>
+                            <td class="col-4"><h6>BESCHRIJVING</h6></td>
+                            <td class="col-3"><h6>LOCATIE</h6></td>
+                            <td class="col-3"><h6>AANWEZIG OP SET</h6></td>
+                        </tr>
+                        <tr class="row" th:each="agenda:${planning}">
+                            <td class="col" th:text="${agenda.timeStart}">Start</td>
+                            <td class="col" th:text="${agenda.timeEnd}">Eind</td>
+                            <td class="col-4" th:text="${agenda.description}">beschrijving</td>
+                            <td class="col-3" th:text="${agenda.location}">Locatie</td>
+                            <td class="col-3">crew & cast</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div th:if="${adminPowers}" id="Delay">
+                <div class="row border-bottom"><h4>Delay:</h4></div>
+                <div>
+                    <form th:action="@{|/callsheet/${callsheet.getId()}|}" method="POST" id="delayPost">
+                        <table width="100%">
+                            <tr class="row">
+                                <td class="col-2"><h6>OPGELOPEN VERTRAGING:</h6></td>
+                                <td class="col-2">
+                                    <button type="button" class="btn btn-primary w-100" onclick="extraTime(5);"><b>+5
+                                        min</b>
+                                    </button>
+                                </td>
+                                <td class="col-2">
+                                    <button type="button" class="btn btn-primary w-100" onclick="extraTime(15);"><b>+15
+                                        min</b>
+                                    </button>
+                                </td>
+                                <td class="col-2">
+                                    <button type="button" class="btn btn-primary w-100" onclick="extraTime(30);"><b>+30
+                                        min</b>
+                                    </button>
+                                </td>
+                                <td class="col-2"><input id="delayTime" name="delayTime" type="time"
+                                                         class="form-control" max="05:00"
+                                                         value="00:00"></td>
+
+                            </tr>
+                            <tr class="row">
+                                <td class="col-2"><h6>REDEN VAN VERTRAGING:</h6></td>
+                                <td class="col-8"><input type="text" id="delayReason" name="delayReason"
+                                                         class="form-control"></td>
+                                <td class="col-2"><input type="submit" id="submitDelay" name="DelayIndienen"
+                                                         class="w-100 btn btn-primary"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <br><br>
+            <div th:if="${adminPowers}" id="Note">
+                <div class="row border-bottom"><h4>Overige opmerking</h4></div>
+                <div>
+                    <form th:action="@{|/callsheet/${callsheet.getId()}/note|}" method="POST" id="notePost">
+                        <table width="100%">
+                            <tr class="row">
+                                <td class="col-2"><h6>OVERIGE OPMERKING:</h6></td>
+                                <td class="col-8"><input type="text" id="noteText" name="noteText" class="form-control">
+                                </td>
+                                <td class="col-2"><input type="submit" id="submitNote" name="noteIndienen"
+                                                         class="w-100 btn btn-primary"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <br><br>
+            <div id="Materiaal">
+                <div class="row border-bottom"><h4>Materiaal:</h4></div>
+                <div class="row border">
+                    <br>
+                    <ul>
+                        <li th:each="materiaal:${equipment}">
+                            <a th:text="${materiaal.getType()}+': '+${materiaal.getName()}+' - '+${materiaal.getSpecifications()}">materiaal</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br><br>
+            <div id="Rapport">
+                <div class="row border-bottom"><h4>Rapport laattijdigheid</h4></div>
+                <div>
+                    <table width="100%">
+                        <tr class="row">
+                            <td class="col-2" colspan="2"><h6>TIJDSTIP</h6></td>
+                            <td class="col-7"><h6>REDEN</h6></td>
+                            <td class="col-3"><h6>OPGELOPEN VERTRAGING</h6></td>
+                        </tr>
+                        <tr class="row" th:each="delay:${delay}">
+                            <td class="col-2" th:text="${delay.getTime().toString()}">beschrijving</td>
+                            <td class="col-7" th:text="${delay.getReason()}">Locatie</td>
+                            <td class="col-3" th:text="${delay.getDelayDuration()} + ' minuten'"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+            <div id="noteRapport">
+                <div class="row border-bottom"><h4>Overige opmerkingen</h4></div>
+                <div>
+                    <table width="100%">
+                        <tr class="row" th:each="note:${note}">
+                            <td class="col-2"><h6>OPMERKING</h6></td>
+                            <td class="col-10" th:text="${note.getNoteText()}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br><br>
+    <button class="btn btn-primary knop"><a th:href="|/download/${callsheet.id}|" ref="/download" class="knopLink">Download
+        callsheet in excel vorm</a></button>
+    <br><br><br><br>
+</div>
+
+<footer>
+    <div class="text-center p-2">
+        <a href="https://sennmaes.wixsite.com/bullsheets" class="p-2"><i class="far fa-copyright"></i> BULLSHEETS</a>
+        <p class="font-italic pt-2">Cut the bullshit</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

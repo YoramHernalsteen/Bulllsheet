@@ -1,0 +1,274 @@
+/*
+ #d90e1d
+ #f7c66e
+ #1a223c
+ #0d1524
+ #f3f3f2
+ */
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #dc3545;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 69%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #dc3545 transparent transparent transparent;
+}
+
+
+.activePlanning {
+    color: #d90e1d!important;
+}
+
+h1, h2, h4, h5, h6{
+    font-weight: bold;
+}
+
+body{
+    font-family: 'Roboto';
+    background-color: #f3f3f2;
+}
+
+.nav-bg{
+    background-color: #1a223c;
+    border-bottom: 5px solid #d90e1d;
+}
+
+.btn-nav {
+    color: #f3f3f2;
+    font-weight: bold;
+}
+
+.btn-nav:hover {
+    color: #f7c66e;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #f3f3f2;
+    font-weight: bold;
+}
+.navbar-nav .nav-item.active .nav-link,
+.navbar-nav .nav-item:hover .nav-link {
+    color: #f7c66e;
+    font-weight: bold;
+}
+
+.btn-primary{
+    background-color: #0d1524;
+    border-color: #0d1524;
+    color: #f3f3f2;
+    font-weight: bold;
+}
+
+.btn-primary:hover{
+    background-color:#f7c66e;
+    border-color: #f7c66e;
+    color: #0d1524;
+    font-weight: bold;
+}
+
+.cancel{
+    color: #1a223c;
+}
+
+.cancel:hover{
+    color: #d90e1d;
+}
+ 
+li {
+    list-style: none;
+    white-space: nowrap;
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+}
+
+.borderLook {
+    border: 2px solid #0d1524;
+    border-radius: 12px;
+}
+
+.logo {
+    min-height: 150px;
+}
+
+footer{
+    background-color: #0d1524;
+    color: #f3f3f2;
+}
+
+footer a{
+    text-decoration: none;
+    color: #f3f3f2;
+}
+
+footer a:hover{
+    text-decoration: none;
+    color: #f7c66e;
+}
+
+table {
+    word-wrap: break-word;
+}
+
+.noMobile{
+    min-width: 1000px;
+}
+
+.centered img {
+    display: none;
+}
+
+.background {
+    background-color: #f3f3f2;
+    background-image: none;
+}
+.centered img {
+    display: block;
+}
+
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tabLook {
+     color: #0d1524;
+}
+.tabLook:hover {
+    color: #d90e1d;
+}
+
+
+.card-header {
+    background-color: #1a223c;
+    border-color: #0d1524;
+    color: #f3f3f2;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 20px;
+
+}
+
+.accordion .card-header:hover {
+    background-color:#f7c66e;
+    border-color: #f7c66e;
+    color: #0d1524;
+    font-family: 'Roboto';
+    max-width: 100%;
+    /* font-weight: bold; */
+}
+
+/*----------------------- Button stijl om rij te verwijderen in edit callsheet*/
+.deleteRow {
+    border: none;
+    background: none;
+}
+
+.deleteRow .iconDel {
+    color: #d90e1d;
+}
+
+.deleteRow .iconDel:hover {
+    color: #8a0e0f;
+}
+
+.top {
+    padding-top: 150px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#navbarProdName {
+    font-size: 20px;
+    float: right;
+    text-align: center;
+    padding:  20px 0;
+    font-family: 'Roboto';
+    font-weight: 100;
+}
+
+#callsheetDate h1 {
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Roboto';
+    font-weight: 300;
+}
+
+#callsheetDate h2 {
+    text-align: center;
+}
+
+#callsheetCompact {
+    padding-top: 100px;
+    font-size: 15px;
+    /* text-align: center; */
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+
+.messages {
+    max-height: inherit;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.form-width {
+    width: auto;
+}
+
+/* de buttons voor download callsheet, edit callsheet en template callsheet */
+.knop{
+    background-color:#1a223c ;
+    color: white;
+}
+.knopLink{
+    text-decoration:none;
+    color: white;
+}
+.knopLink:hover{
+    text-decoration: none;
+    color: #1a223c;
+}
+
+.btn-danger {
+    background-color: #d90e1d;
+    border-color: #d90e1d;
+}
+
+
+
+
