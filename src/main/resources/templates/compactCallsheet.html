@@ -10,9 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
@@ -55,7 +58,8 @@
                        th:href="|/user-list/|">User-List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout
+                        <i class="fas fa-sign-out-alt"></i></a>
                 </li>
             </ul>
         </div>
@@ -69,9 +73,8 @@
         <div id="callsheetDate">
             <h2 th:unless="${sameDateCallsheet}" class="text-danger">Dit is een aankomende callsheet en is niet van
                 vandaag!</h2>
-            <h1 th:text="|Datum vandaag: ${currentDate}|"></h1>
-            <h1 th:text="|Callsheet datum: ${callsheet.getDate()}|"></h1>
-
+            <h1 th:text="|Datum vandaag: ${currentDate}|">current date</h1>
+            <h1 th:text="|Datum callsheet: ${correctedDate}|">callsheet date</h1>
         </div>
         <br>
 
@@ -79,7 +82,8 @@
             <div class="list list-row card pageContent" id="sortable" data-sortable-id="0" aria-dropeffect="move">
                 <div class="list-item" id="1" data-id="0" data-item-sortable-id="0" draggable="true" role="option"
                      aria-grabbed="false" style="">
-                    <div class="card-header justify-content-center text-uppercase pb-0" id="headingOne" style="text-align: center;">
+                    <div class="card-header justify-content-center text-uppercase pb-0" id="headingOne"
+                         style="text-align: center;">
                         <a data-toggle="collapse" data-target="#collapseOne">
                             <div th:if="${activeRow}">
                                 <p>Momenteel bezig:</p>

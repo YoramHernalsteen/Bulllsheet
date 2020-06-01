@@ -325,9 +325,8 @@ const dateDuplicateCheck = function () {
 };
 
 const datePoppers = function () {
-    let popup = document.getElementById("datePopup");
-    popup.setAttribute("style", "visibility:hidden");
-    if (!dateDuplicateCheck()) popup.setAttribute("style", "visibility:visible");
+    datePopup.style = "visibility:hidden";
+    if (!dateDuplicateCheck()) datePopup.style = "visibility:visible";
 };
 
 const dateSubmissionCheck = function () {
@@ -344,18 +343,15 @@ const usernameCheck = function (newName) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             if (xhr.status == 200) {
-                let popup = document.getElementById("namePopup");
-                let origName = document.getElementById("usernameOriginal").innerText;
-                let elm = document.getElementById("username");
-                popup.setAttribute("style", "visibility:hidden");
-                if (newName === origName) {
-                    elm.setAttribute("style", "border-color: #ced4da"); // OG color
+                namePopup.style = "visibility:hidden";
+                if (newName === usernameOriginal.innerText) {
+                    username.style = "border-color: #ced4da"; // OG color
                 } else {
                     if (xhr.responseText === 'false') {
-                        elm.setAttribute("style", "border-color: #d90e1d"); //red
-                        popup.setAttribute("style", "visibility:visible");
-                    } else if (xhr.responseText === 'empty') elm.setAttribute("style", "border-color: #d90e1d");
-                    else elm.setAttribute("style", "border-color: #28a745") //green
+                        username.style = "border-color: #d90e1d"; //red
+                        namePopup.style = "visibility:visible";
+                    } else if (xhr.responseText === 'empty') username.style = "border-color: #d90e1d";
+                    else username.style = "border-color: #28a745"; //green
                 }
             }
         }
@@ -374,6 +370,9 @@ const passwordCheck = function () {
             if (xhr.status == 200) {
                 if (xhr.responseText === 'true') {
                     $("#myModal").modal();
+                    passTest.value = "";
+                } else {
+                    incorrectPasswordPopup.style = "visibility:visible";
                 }
             }
         }
@@ -385,30 +384,17 @@ const passwordCheck = function () {
 const passequal = function () {
     let pass1 = document.getElementById("newPassword");
     let pass2 = document.getElementById("confirmNewPassword");
-    if (pass1.value === pass2.value && pass1.value.length > 5) {
-        return true;
-    } else {
-        if (pass1.value !== pass2.value) {
-            document.getElementById("passNotEqualPopup").setAttribute("style", "visibility:visible");
-        }
-        if (pass1.value.length < 5 || pass2.value.length < 5) {
-            document.getElementById("passEmptyPopup").setAttribute("style", "visibility:visible");
-        }
+    if (pass1.value === pass2.value && pass1.value.length > 5) return true;
+    else {
+        if (pass1.value !== pass2.value) passNotEqualPopup.style = "visibility:visible";
+        if (pass1.value.length < 5 || pass2.value.length < 5) passEmptyPopup.style = "visibility:visible";
         return false;
     }
 };
 
 const clearPopup = function () {
-    document.getElementById("passEmptyPopup").setAttribute("style", "visibility:hidden");
-    document.getElementById("passNotEqualPopup").setAttribute("style", "visibility:hidden");
-};
-
-const clearConfirm = function () {
-    if (document.getElementById("confirmNewPassword").value != null) document.getElementById("confirmNewPassword").value = '';
-
-};
-const clearNew = function () {
-    if (document.getElementById("newPassword").value != null) document.getElementById("newPassword").value = '';
+    passEmptyPopup.style = "visibility:hidden";
+    passNotEqualPopup.style = "visibility:hidden";
 };
 
 (function () {

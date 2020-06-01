@@ -19,6 +19,7 @@ public class Delay {
 
     public Delay() {
     }
+
     public Integer getId() {
         return id;
     }

@@ -10,6 +10,7 @@ import com.byteowls.jopencage.model.JOpenCageResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -37,17 +38,20 @@ import java.util.Optional;
 
 @Controller
 public class HomeController {
+
+    @Value("${testTime}")
+    private String appTime;
+    @Value("${testDate}")
+    private String appDate;
+
     private static final String FILE_PATH = "callsheet.xlsx";
     private Logger logger = LoggerFactory.getLogger(HomeController.class);
-    private String titel = "format purpose only";
 
-    public LocalDate date = LocalDate.now();
-    public LocalTime currentTime = LocalTime.now();
-    public LocalDate testDate = LocalDate.of(2020, 7, 6);
-    public LocalDate searchLimitDays = testDate.plusDays(7);
-    public LocalTime testTime = LocalTime.of(15, 0);
+    public LocalDate date;
+    public LocalTime time;
+    public LocalDate searchLimitDays;
+    public String correctOrderCurrentDate;
     public DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    public String correctOrderCurrentDate = dateFormatter.format(date);
     public HashMap<Integer, String> delay = new HashMap<>();
 
     JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder("45fca3be40cb4b92ab5e080285152806");
@@ -75,6 +79,15 @@ public class HomeController {
     @Autowired
     NoteRepository noteRepository;
 
+    public void getRealOrTestValues() {
+        if (appTime.equals("00:00")) time = LocalTime.now();
+        else time = LocalTime.parse(appTime);
+        if (appDate.equals("0000-00-00")) date = LocalDate.now();
+        else date = LocalDate.parse(appDate);
+        searchLimitDays = date.plusDays(7);
+        correctOrderCurrentDate = dateFormatter.format(date);
+    }
+
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
@@ -98,12 +111,11 @@ public class HomeController {
         }
 
         User activeUser = null;
-        Optional<User> optionalUser = userRepository.findById(5);
+        Optional<User> optionalUser = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
         if (optionalUser.isPresent()) activeUser = optionalUser.get();
         Collection<Production> productionsUserWorksOn = productionRepository.findByUsers(activeUser);
         model.addAttribute("username", request.getSession().getAttribute("username"));
         model.addAttribute("restriction", request.getSession().getAttribute("userrestrictions"));
-        model.addAttribute("titel", titel);
         model.addAttribute("productions", productionsUserWorksOn);
 
         return "home";
@@ -125,11 +137,11 @@ public class HomeController {
         if (user.registerValidationEmptyCheck()) {
             Optional<User> validationTest = userRepository.findByUsername(user.getUsername());
             if (validationTest.isPresent()) {
-                System.out.println("Username already taken");
+                logger.info("Username already taken");
                 model.addAttribute("errorcode", "Username is already taken.");
                 return "register";
             } else {
-                System.out.println("Username check is fine. Proceed");
+                logger.info("Username check is fine. Proceed");
                 ArrayList<String> userDetails = new ArrayList<String>();
                 try {
                     userDetails.add(user.getUsername());
@@ -139,7 +151,6 @@ public class HomeController {
                     userDetails.add(user.getLastName());
                     userDetails.add(user.getEmail());
                     userDetails.add(user.getPhoneNumber());
-                    System.out.println(userDetails);
                     User newUser = makeNewUser(userDetails, user);
                     userRepository.save(newUser);
                     return "login";
@@ -149,7 +160,7 @@ public class HomeController {
                 }
             }
         } else {
-            System.out.println("User forgot to fill in a field");
+            logger.info("User forgot to fill in a field");
             model.addAttribute("errorcode", "You forgot to fill something in.");
             return "register";
         }
@@ -186,13 +197,10 @@ public class HomeController {
         if (user.loginValidationEmptyCheck()) {
             Optional<User> validationTest = userRepository.findByUsername(user.getUsername());
             if (validationTest.isPresent()) {
-                System.out.println("Username exists. Proceed login");
+                logger.info("Username exists. Proceed login");
                 String userPasswordGiven = toHexString(getSHA(user.getPassword()));
-                System.out.println(validationTest.get().getPassword());
-                System.out.println(userPasswordGiven);
                 if (validationTest.get().getPassword().equals(userPasswordGiven)) {
-                    System.out.println("pass correct");
-                    System.out.println(validationTest.get().getUserRestrictions());
+                    logger.info("pass correct");
                     request.getSession().setAttribute("loggedin", "true");
                     request.getSession().setAttribute("username", validationTest.get().getUsername());
                     request.getSession().setAttribute("firstname", validationTest.get().getFirstName());
@@ -201,17 +209,17 @@ public class HomeController {
                     request.getSession().setAttribute("jobtitle", validationTest.get().getJobTitle());
                     request.getSession().setAttribute("userrestrictions", validationTest.get().getUserRestrictions());
                 } else {
-                    System.out.println("pass not correct");
+                    logger.info("pass not correct");
                     model.addAttribute("errorcode", "Username or password are not correct");
                     return "login";
                 }
             } else {
-                System.out.println("Username is not registered");
+                logger.info("Username is not registered");
                 model.addAttribute("errorcode", "Username or password are not correct");
                 return "login";
             }
         } else {
-            System.out.println("User forgot to fill in a field");
+            logger.info("User forgot to fill in a field");
             model.addAttribute("errorcode", "You forgot to fill something in username or password.");
             return "login";
         }
@@ -233,9 +241,10 @@ public class HomeController {
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
-
+        getRealOrTestValues();
         Production production = null;
         Callsheet callsheet = null;
+        String correctedDate = null;
         DayPlanning activeRow = null;
         DayPlanning lastRowPlanning = null;
         boolean sameDateCallsheet = true;
@@ -244,10 +253,10 @@ public class HomeController {
 
         Optional<Production> optionalProduction = productionRepository.findById(id);
         if (optionalProduction.isPresent()) production = optionalProduction.get();
-        Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, testDate);
+        Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, date);
         if (optionalCallsheet.isPresent()) callsheet = optionalCallsheet.get();
         else {
-            optionalCallsheet = callsheetRepository.findFirstByProductionAndDateAfterAndDateIsBetweenOrderByDate(production, testDate, testDate, searchLimitDays);
+            optionalCallsheet = callsheetRepository.findFirstByProductionAndDateAfterAndDateIsBetweenOrderByDate(production, date, date, searchLimitDays);
             if (optionalCallsheet.isPresent()) callsheet = optionalCallsheet.get();
             sameDateCallsheet = false;
         }
@@ -255,12 +264,13 @@ public class HomeController {
         Collection<DayPlanning> planning = null;
         Collection<Equipment> equipment = null;
         if (callsheet != null) {
+            correctedDate = dateFormatter.format(callsheet.getDate());
             String shootingLoc = callsheet.getShootingLocation().getAdres() + ", " + callsheet.getShootingLocation().getZipcode() + " " + callsheet.getShootingLocation().getCity() + ", Belgium";
             JOpenCageForwardRequest jRequest = new JOpenCageForwardRequest(shootingLoc);
             jRequest.setRestrictToCountryCode("be");
             JOpenCageResponse response = jOpenCageGeocoder.forward(jRequest);
             JOpenCageLatLng result = response.getFirstPosition();
-            System.out.println(result.getLat() + " + " + result.getLng());
+            logger.info(result.getLat() + " + " + result.getLng());
             navUrl = "https://www.waze.com/ul?ll=" + result.getLat() + "%2C+" + result.getLng() + "&navigate=yes&zoom=17";
             planning = dayPlanningRepository.findByCallsheet(optionalCallsheet.get());
             if (planning.isEmpty()) {
@@ -274,10 +284,10 @@ public class HomeController {
             Optional<DayPlanning> optionalLastDayPlanningRow = dayPlanningRepository.findLatestTime(callsheet);
             if (optionalLastDayPlanningRow.isPresent()) lastRowPlanning = optionalLastDayPlanningRow.get();
 
-            Optional<DayPlanning> optionalDayPlanning = dayPlanningRepository.findByCallsheetAndTimeBetween(testTime, callsheet.getId());
-            if (optionalDayPlanning.isPresent() && callsheet.getDate().equals(testDate))
+            Optional<DayPlanning> optionalDayPlanning = dayPlanningRepository.findByCallsheetAndTimeBetween(time, callsheet.getId());
+            if (optionalDayPlanning.isPresent() && callsheet.getDate().equals(date))
                 activeRow = optionalDayPlanning.get();
-            else if (callsheet.getDate().equals(testDate) && lastRowPlanning != null && testTime.isBefore(lastRowPlanning.getTimeEnd())) {
+            else if (callsheet.getDate().equals(date) && lastRowPlanning != null && time.isBefore(lastRowPlanning.getTimeEnd())) {
                 Optional<DayPlanning> optionalEarliestDayPlanning = dayPlanningRepository.findEarliestTime(callsheet);
                 if (optionalEarliestDayPlanning.isPresent()) activeRow = optionalEarliestDayPlanning.get();
             }
@@ -286,9 +296,9 @@ public class HomeController {
         model.addAttribute("production", production);
         model.addAttribute("username", request.getSession().getAttribute("username"));
         model.addAttribute("currentDate", correctOrderCurrentDate);
-        model.addAttribute("titel", titel);
         model.addAttribute("callsheet", callsheet);
         model.addAttribute("wazeurl", navUrl);
+        model.addAttribute("correctedDate", correctedDate);
         model.addAttribute("planning", planning);
         model.addAttribute("equipment", equipment);
         model.addAttribute("activeRow", activeRow);
@@ -326,7 +336,7 @@ public class HomeController {
         jRequest.setRestrictToCountryCode("be");
         JOpenCageResponse response = jOpenCageGeocoder.forward(jRequest);
         JOpenCageLatLng result = response.getFirstPosition();
-        System.out.println(result.getLat() + " + " + result.getLng());
+        logger.info(result.getLat() + " + " + result.getLng());
         String navUrl = "https://www.waze.com/ul?ll=" + result.getLat() + "%2C+" + result.getLng() + "&navigate=yes&zoom=17";
         Collection<DayPlanning> planning = dayPlanningRepository.findByCallsheet(optionalCallsheet.get());
         if (planning.isEmpty()) {
@@ -378,7 +388,7 @@ public class HomeController {
 
     @PostMapping("/callsheet/{id}/note")
     public String addNote(@PathVariable Integer id, @RequestParam String noteText) {
-        System.out.println(noteText);
+        logger.info(noteText);
         Optional<Callsheet> callsheetOptional = callsheetRepository.findById(id);
         Note note = new Note();
         note.setCallsheet(callsheetOptional.get());
@@ -409,7 +419,6 @@ public class HomeController {
         delay.setDelayDuration(minutes);
         delay.setTime(java.time.LocalTime.now());
         delayRepository.save(delay);
-        System.out.println(id);
         return "redirect:/callsheet/" + id;
     }
 
@@ -423,6 +432,7 @@ public class HomeController {
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
+        getRealOrTestValues();
         User user = null;
         Integer activeCallsheetId = null;
         Production production = null;
@@ -435,7 +445,6 @@ public class HomeController {
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
         Optional<User> optionalUser = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
         if (optionalUser.isPresent()) user = optionalUser.get();
-        System.out.println(user);
         Optional<Production> optionalProduction = productionRepository.findById(id);
         if (optionalProduction.isPresent()) {
             production = optionalProduction.get();
@@ -456,7 +465,7 @@ public class HomeController {
             } else {
                 if (searchDate != null && !searchDate.isEmpty()) {
                     parsedSearchDate = LocalDate.parse(searchDate);
-                    Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateBeforeAndDateEqualsAndUsers(production, testDate, parsedSearchDate, user);
+                    Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateBeforeAndDateEqualsAndUsers(production, date, parsedSearchDate, user);
                     if (optionalCallsheet.isPresent()) {
                         optionalToCollection.add(optionalCallsheet.get());
                         callsheets = optionalToCollection;
@@ -464,23 +473,23 @@ public class HomeController {
                 } else if (betweenSearchCondition) {
                     parsedSearchDateStart = LocalDate.parse(searchDateStart);
                     parsedSearchDateEnd = LocalDate.parse(searchDateEnd);
-                    callsheets = callsheetRepository.findByProductionAndDateBeforeAndDateIsBetweenAndUsersOrderByDate(production, testDate, parsedSearchDateStart, parsedSearchDateEnd, user);
+                    callsheets = callsheetRepository.findByProductionAndDateBeforeAndDateIsBetweenAndUsersOrderByDate(production, date, parsedSearchDateStart, parsedSearchDateEnd, user);
                 } else
-                    callsheets = callsheetRepository.findAllByProductionAndUsersAndDateBeforeOrderByDate(production, user, testDate);
+                    callsheets = callsheetRepository.findAllByProductionAndUsersAndDateBeforeOrderByDate(production, user, date);
             }
 
 
-            Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, testDate);
-            if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId();
+            Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, date);
+            if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId() + 1;
             else {
-                optionalCallsheet = callsheetRepository.findFirstByProductionAndDateAfterAndDateIsBetweenOrderByDate(production, testDate, testDate, searchLimitDays);
-                if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId();
+                optionalCallsheet = callsheetRepository.findFirstByProductionAndDateAfterAndDateIsBetweenOrderByDate(production, date, date, searchLimitDays);
+                if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId() + 1;
             }
         }
 
         model.addAttribute("production", production);
         model.addAttribute("callsheets", callsheets);
-        model.addAttribute("activeCallsheetId", activeCallsheetId + 1);
+        model.addAttribute("activeCallsheetId", activeCallsheetId);
         model.addAttribute("searchDate", parsedSearchDate);
         model.addAttribute("searchDateStart", parsedSearchDateStart);
         model.addAttribute("searchDateEnd", parsedSearchDateEnd);
@@ -531,7 +540,7 @@ public class HomeController {
             if (!usernameTaken.isPresent()) {
                 user.setUsername(username);
                 request.getSession().setAttribute("username", username);
-            } else System.out.println("username taken");
+            } else logger.info("username taken");
             if (!user.getFirstName().equals(firstname)) user.setFirstName(firstname);
             if (!user.getLastName().equals(lastname)) user.setLastName(lastname);
             if (!user.getEmail().equals(email)) user.setEmail(email);
@@ -561,7 +570,7 @@ public class HomeController {
         if (validationTest.isPresent()) {
             String userPasswordGiven = toHexString(getSHA(pass));
             if (validationTest.get().getPassword().equals(userPasswordGiven)) {
-                System.out.println("pass correct");
+                logger.info("pass correct");
                 return "true";
             }
         }
@@ -570,7 +579,7 @@ public class HomeController {
 
 
     @PostMapping("/changepass")
-    public String passchanger(HttpServletRequest request, @RequestParam String newPassword,@RequestParam String confirmNewPassword) throws NoSuchAlgorithmException {
+    public String passchanger(HttpServletRequest request, @RequestParam String newPassword, @RequestParam String confirmNewPassword) throws NoSuchAlgorithmException {
         Optional<User> validationTest = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
         if (validationTest.isPresent() && newPassword != null) {
             User user = validationTest.get();
@@ -607,16 +616,15 @@ public class HomeController {
         }
 
         User user = userRepository.findById(id).get();
-        System.out.println(user);
         model.addAttribute("user", user);
 
-        return "/edit-selected-user";
-        
+        return "edit-selected-user";
+
     }
 
     @PostMapping("/user-list/edit-user/{id}")
     public String editUserFromListPost(HttpServletRequest request, Model model, @PathVariable Integer id, @RequestParam String function, @RequestParam String jobTitle,
-    @RequestParam String userGroup) {
+                                       @RequestParam String userGroup) {
         String loggedin = (String) request.getSession().getAttribute("loggedin");
 
         if (loggedin == null || loggedin.isEmpty()) {
@@ -627,13 +635,11 @@ public class HomeController {
             User user;
             Optional<User> optionalUser = userRepository.findById(id);
             if (optionalUser.isPresent()) {
-                System.out.println(function);
                 user = optionalUser.get();
                 user.setFunction(function);
                 user.setJobTitle(jobTitle);
                 user.setUserRestrictions(userGroup);
                 userRepository.save(user);
-                System.out.println("hey i run");
             }
         } else if ("Delete User".equals(button)) {
             User user;
@@ -644,7 +650,7 @@ public class HomeController {
             }
         }
         return "redirect:/user-list";
-        
+
     }
 
     @GetMapping("/test")

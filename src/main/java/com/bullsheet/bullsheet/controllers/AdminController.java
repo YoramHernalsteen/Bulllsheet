@@ -2,7 +2,10 @@ package com.bullsheet.bullsheet.controllers;
 
 import com.bullsheet.bullsheet.model.*;
 import com.bullsheet.bullsheet.repositories.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,6 +22,11 @@ import java.util.*;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Value("${testTime}")
+    private String appTime;
+    @Value("${testDate}")
+    private String appDate;
 
     @Autowired
     AvailabilityUserRepository availabilityUserRepository;
@@ -39,14 +47,23 @@ public class AdminController {
     @Autowired
     IndividualCalltimeRepository individualCalltimeRepository;
 
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private Logger logger = LoggerFactory.getLogger(AdminController.class);
+
+    public LocalDate date;
+    public LocalTime time;
+    public LocalDate searchLimitDays;
+    public String correctOrderCurrentDate;
+    public DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final java.util.Random rand = new java.util.Random();
-    HomeController test = new HomeController();
-    LocalDate date = test.date;
-    LocalTime currentTime = test.currentTime;
-    LocalTime testTime = test.testTime;
-    LocalDate testDate = test.testDate;
-    LocalDate searchLimitDays = test.searchLimitDays;
+
+    public void getRealOrTestValues() {
+        if (appTime.equals("00:00")) time = LocalTime.now();
+        else time = LocalTime.parse(appTime);
+        if (appDate.equals("0000-00-00")) date = LocalDate.now();
+        else date = LocalDate.parse(appDate);
+        searchLimitDays = date.plusDays(7);
+        correctOrderCurrentDate = dateFormatter.format(date);
+    }
 
     @GetMapping("/edit-callsheet/{id}")
     public String callsheetEditor(HttpServletRequest request, @PathVariable(required = false) Integer id, Model model) {
@@ -94,7 +111,7 @@ public class AdminController {
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
-
+        getRealOrTestValues();
         Collection<Callsheet> futureCallsheets = null;
         Integer activeCallsheetId = null;
         Production production = null;
@@ -103,12 +120,12 @@ public class AdminController {
         Optional<Production> optionalProduction = productionRepository.findById(id);
         if (optionalProduction.isPresent()) {
             production = optionalProduction.get();
-            futureCallsheets = callsheetRepository.findAllByProductionAndDateAfter(production, testDate.minusDays(1));
-            Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, testDate);
-            if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId();
+            futureCallsheets = callsheetRepository.findAllByProductionAndDateAfter(production, date.minusDays(1));
+            Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, date);
+            if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId() + 1;
             else {
-                optionalCallsheet = callsheetRepository.findFirstByProductionAndDateAfterAndDateIsBetweenOrderByDate(production, testDate, testDate, searchLimitDays);
-                if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId();
+                optionalCallsheet = callsheetRepository.findFirstByProductionAndDateAfterAndDateIsBetweenOrderByDate(production, date, date, searchLimitDays);
+                if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId() + 1;
             }
         }
 
@@ -116,7 +133,7 @@ public class AdminController {
         model.addAttribute("production", production);
         model.addAttribute("adminPowers", isAdmin);
         model.addAttribute("futureSheets", futureCallsheets);
-        model.addAttribute("activeCallsheetId", activeCallsheetId+1);
+        model.addAttribute("activeCallsheetId", activeCallsheetId);
         return "admin/new-callsheet";
     }
 
@@ -134,7 +151,7 @@ public class AdminController {
         Optional<Callsheet> optionalCallsheet = callsheetRepository.findById(id);
         if (optionalCallsheet.isPresent()) {
             callsheet = optionalCallsheet.get();
-            correctedDate =callsheet.getDate().plusDays(1);
+            correctedDate = callsheet.getDate().plusDays(1);
         }
         model.addAttribute("callsheet", callsheet);
         model.addAttribute("correctedDate", correctedDate);
@@ -160,7 +177,6 @@ public class AdminController {
     @PostMapping("/new-callsheet/{id}")
     public String createCallsheet(@RequestParam MultiValueMap<String, String> allInputValues,
                                   @PathVariable Integer id) {
-        System.out.println(allInputValues.keySet());
         Callsheet callsheet = null;
         Integer newCallsheetId = null;
         LocalDate date = null;
@@ -174,7 +190,6 @@ public class AdminController {
         ArrayList<DayPlanning> planning = new ArrayList<>();
         ArrayList<Equipment> equipment = new ArrayList<>();
         ArrayList<IndividualCalltime> individualCalltimes = new ArrayList<>();
-        System.out.println(allInputValues.keySet());
         for (Map.Entry<String, List<String>> entry : allInputValues.entrySet()) {
 
             if (entry.getKey().contains("Date")) {
@@ -249,7 +264,6 @@ public class AdminController {
 
     @PostMapping("/edit-callsheet/{id}")
     public String editCallsheet(@PathVariable Integer id, @RequestParam MultiValueMap<String, String> allInputValues) {
-        System.out.println(allInputValues.entrySet());
         LocalDate date = null;
         LocalTime calltime = null;
         ShootingLocation mainLocation = null;
@@ -322,7 +336,6 @@ public class AdminController {
         callsheet.setShootingLocation(mainLocation);
         callsheet.setAdditionalLocations(additionalLocations);
         callsheet.setEquipment(equipment);
-        System.out.println(equipment);
         callsheetRepository.save(callsheet);
         for (DayPlanning planningRow : planning) {
             planningRow.setCallsheet(callsheet);
@@ -338,7 +351,6 @@ public class AdminController {
 
     @PostMapping("/template-callsheet/{id}")
     public String templateCallsheet(@PathVariable Integer id, @RequestParam MultiValueMap<String, String> allInputValues) {
-        System.out.println(allInputValues.entrySet());
         Callsheet callsheet = null;
         Integer newCallsheetId = null;
         LocalDate date = null;
@@ -413,7 +425,6 @@ public class AdminController {
         callsheet.setShootingLocation(mainLocation);
         callsheet.setAdditionalLocations(additionalLocations);
         callsheet.setEquipment(equipment);
-        System.out.println(equipment);
         callsheetRepository.save(callsheet);
         for (DayPlanning planningRow : planning) {
             planningRow.setCallsheet(callsheet);
@@ -466,7 +477,7 @@ public class AdminController {
                 Optional<User> optionalNewUser = userRepository.findByUsername(user.getUsername());
                 if (optionalNewUser.isPresent()) user = optionalNewUser.get();
             }
-        } else System.out.println("Geen geldige voor- en/of achternaam ingegeven");
+        } else logger.info("Geen geldige voor- en/of achternaam ingegeven");
         return user;
     }
 

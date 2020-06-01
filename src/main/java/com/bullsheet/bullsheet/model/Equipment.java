@@ -15,9 +15,9 @@ public class Equipment {
     private String type;
     private String name;
     private String specifications;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProductionCompany productionCompany;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Production production;
     @ManyToMany(mappedBy = "equipment")
     private Collection<Callsheet> callsheets;

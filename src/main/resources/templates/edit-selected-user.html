@@ -44,7 +44,7 @@
                     <option value="Producer">Producer</option>
                     <option value="Director">Director</option>
                 </select>
-                
+
                 <div class="invalid-feedback">
                     Job title cannot be set empty!
                 </div>
@@ -54,11 +54,12 @@
                 <label for="userGroup" style="width: 120px;">User-group: </label>
                 <p style="display: none" th:text="${user.getUserRestrictions()}" id="originalJobTitle"></p>
                 <select class="custom-select" id="userGroup" name="userGroup" style="max-width: 200px;" required>
-                    <option selected th:text="${user.getUserRestrictions()}" th:value="${user.getUserRestrictions()}"></option>
+                    <option selected th:text="${user.getUserRestrictions()}"
+                            th:value="${user.getUserRestrictions()}"></option>
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
-                
+
                 <div class="invalid-feedback">
                     Job title cannot be set empty!
                 </div>

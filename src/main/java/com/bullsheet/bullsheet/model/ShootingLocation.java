@@ -17,7 +17,7 @@ public class ShootingLocation {
     private String city;
     private String type;
     private String extraInfo;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     ProductionCompany productionCompany;
 
 

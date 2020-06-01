@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 <body class="background">
 <div class="centered">
-<a href="/profile" style="font-size: 4rem;"><i class="fas fa-user-circle"></i></a>
+    <a href="/profile" style="font-size: 4rem;"><i class="fas fa-user-circle"></i></a>
     <img src="/img/BullSheets_logo.png" width="200px" class="center">
     <h1>Choose Production</h1>
     <br>
     <ul class="p-0">
         <li th:each="production:${productions}">
-            <h2><a class="btn btn-primary mb-1 btn-block text-uppercase" th:href="|/compactCallsheet/${production.getId()}|"
-               th:text="${production.getName()}">Link to production callsheet</a></h2>
+            <h2><a class="btn btn-primary mb-1 btn-block text-uppercase"
+                   th:href="|/compactCallsheet/${production.getId()}|"
+                   th:text="${production.getName()}">Link to production callsheet</a></h2>
         </li>
     </ul>
 </div>

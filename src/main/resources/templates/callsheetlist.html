@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>All the production callsheets</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
@@ -49,7 +50,8 @@
                        th:href="|/user-list/|">User-List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout  <i class="fas fa-sign-out-alt"></i></a>
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout <i
+                            class="fas fa-sign-out-alt"></i></a>
                 </li>
             </ul>
         </div>
@@ -70,10 +72,12 @@
                         <div class="col-1"></div>
                         <div class="form-group col">
                             <p>Zoek tussen data bereik:</p>
-                            <input type="date" class="form-control float-left form-width" id="searchDateStart" name="searchDateStart"
+                            <input type="date" class="form-control float-left form-width" id="searchDateStart"
+                                   name="searchDateStart"
                                    th:value="${searchDateStart}">
                             <h3 class="float-left pl-2 pr-2"> - </h3>
-                            <input type="date" class="form-control float-left form-width" id="searchDateEnd" name="searchDateEnd"
+                            <input type="date" class="form-control float-left form-width" id="searchDateEnd"
+                                   name="searchDateEnd"
                                    th:value="${searchDateEnd}">
                         </div>
                     </div>
@@ -93,7 +97,8 @@
             <h1 th:text="|Callsheet list of production: ${production.getName()}|">production name</h1>
             <ul>
                 <li th:each="callsheet:${callsheets}">
-                    <a class="h5" th:href="|/callsheet/${callsheet.getId()}|" th:text="${callsheet.getDate()}+' - '+${callsheet.getShootingLocation().getCity()}"></a>
+                    <a class="h5" th:href="|/callsheet/${callsheet.getId()}|"
+                       th:text="${callsheet.getDate()}+' - '+${callsheet.getShootingLocation().getCity()}"></a>
                 </li>
             </ul>
         </div>
