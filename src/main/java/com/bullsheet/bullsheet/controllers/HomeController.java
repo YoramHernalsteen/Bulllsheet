@@ -499,7 +499,7 @@ public class HomeController {
         if (optionalUser.isPresent()) user = optionalUser.get();
 
         model.addAttribute("user", user);
-        return "/profile";
+        return "profile";
     }
 
     @GetMapping("/profile-edit")
@@ -512,7 +512,7 @@ public class HomeController {
         if (optionalUser.isPresent()) user = optionalUser.get();
 
         model.addAttribute("user", user);
-        return "/profile-edit";
+        return "profile-edit";
     }
 
     @PostMapping("/profile-edit")
