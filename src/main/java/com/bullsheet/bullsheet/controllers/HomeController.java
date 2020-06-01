@@ -486,7 +486,7 @@ public class HomeController {
         model.addAttribute("searchDateEnd", parsedSearchDateEnd);
         model.addAttribute("adminPowers", isAdmin);
 
-        return "/callsheetlist";
+        return "callsheetlist";
     }
 
     @GetMapping("/profile")
@@ -595,7 +595,7 @@ public class HomeController {
         model.addAttribute("cameras", userRepository.getUsersByJobTitle("Camera"));
         model.addAttribute("directors", userRepository.getUsersByJobTitle("Director"));
         model.addAttribute("producers", userRepository.getUsersByJobTitle("Producer"));
-        return "/user-list";
+        return "user-list";
     }
 
     @GetMapping("/user-list/edit-user/{id}")
