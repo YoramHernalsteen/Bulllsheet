@@ -269,6 +269,13 @@ table {
     border-color: #d90e1d;
 }
 
+.iconHome {
+    color: #1a223c;
+}
+
+.iconHome:hover {
+    color: #f7c66e;
+}
 
 
 

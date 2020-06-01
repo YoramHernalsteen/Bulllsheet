@@ -652,9 +652,4 @@ public class HomeController {
         return "redirect:/user-list";
 
     }
-
-    @GetMapping("/test")
-    public String test(Model model) {
-        return "/testFile";
-    }
 }
