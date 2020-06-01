@@ -28,7 +28,7 @@ public class Excel {
         int crewNr = 20;
         for(IndividualCalltime ict :individualCalltimes){
             if (ict.getUser().getFunction().equals("Cast") || ict.getUser().getFunction().equals("cast")) {
-                templateSheet.getCell(castNr, 0).setValue(ict.getUser().getFunction());
+                templateSheet.getCell(castNr, 0).setValue(ict.getUser().getJobTitle());
                 templateSheet.getCell(castNr, 1).setValue(ict.getUser().getFirstName() + " " + ict.getUser().getLastName());
                 templateSheet.getCell(castNr, 2).setValue(ict.getUser().getPhoneNumber());
                 templateSheet.getCell(castNr, 3).setValue(ict.getUser().getEmail());
@@ -37,7 +37,7 @@ public class Excel {
 
             }
             else if(ict.getUser().getFunction().equals("Crew") || ict.getUser().getFunction().equals("crew")){
-                templateSheet.getCell(crewNr, 0).setValue(ict.getUser().getFunction());
+                templateSheet.getCell(crewNr, 0).setValue(ict.getUser().getJobTitle());
                 templateSheet.getCell(crewNr, 1).setValue(ict.getUser().getFirstName() + " "+ ict.getUser().getLastName());
                 templateSheet.getCell(crewNr, 2).setValue(ict.getUser().getPhoneNumber());
                 templateSheet.getCell(crewNr, 3).setValue(ict.getUser().getEmail());
