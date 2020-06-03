@@ -17,7 +17,7 @@
     <div class="container">
         <a class="navbar-brand" href="/">
             <img src="/img/BullSheets_logo.png" height="60">
-            <h1 id="navbarProdName" th:text=" ${callsheet.getProduction().getName()}"></h1>
+            <h1 th:if="${callsheet}" id="navbarProdName" th:text=" ${callsheet.getProduction().getName()}"></h1>
         </a>
         <button class="navbar-toggler" type="button"
                 data-toggle="collapse"
@@ -31,22 +31,23 @@
                 <li class="nav-item">
                     <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
+                <li th:if="${allowedToSee}" class="nav-item">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/compactCallsheet/${callsheet.getProduction().getId()}|">Overview</a>
                 </li>
-                <li th:if="${adminPowers}" class="nav-item">
-                    <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${callsheet.getId()}|">Callsheet</a>
+                <li th:if="${adminPowers} and ${allowedToSee}" class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right activeMainLink"
+                       th:href="|/callsheet/${callsheet.getId()}|">Callsheet</a>
                 </li>
-                <li th:if="${adminPowers}" class="nav-item">
+                <li th:if="${adminPowers} and ${allowedToSee}" class="nav-item">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/admin/new-callsheet/${callsheet.getProduction().getId()}|">New Callsheet</a>
                 </li>
-                <li class="nav-item">
+                <li th:if="${allowedToSee}" class="nav-item">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/callsheetlist/${callsheet.getProduction().getId()}|">Callsheets list</a>
                 </li>
-                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                <li class="nav-item" th:if="${adminPowers} and ${allowedToSee} and ${production}">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/user-list/|">User-List</a>
                 </li>
@@ -59,26 +60,35 @@
     </div>
 </nav>
 
-<div class="container top">
-    <div class="mt-2">
-        <div class="float-left">
+<div th:if="${callsheet} and not ${allowedToSee}" class="container text-center top">
+    <div class="my-2">
+        <h2>You do not have the authorisation to view this page!</h2>
+    </div>
+</div>
+
+<div th:unless="${callsheet}" class="container text-center top">
+    <div class="my-2">
+        <h2>This is not the callsheet you were looking for because it doesn't exist!</h2>
+    </div>
+</div>
+
+<div th:if="${allowedToSee}" class="container top">
+    <div class="row mt-2">
+        <div class="col-2">
             <h1 th:text="${callsheet.getProductionCompany().getName()}">Callsheet from db test</h1>
         </div>
-        <div class="row">
-            <div class="col-5 offset-7 mb-3">
-                <button class="btn btn-primary w-100 text-left knop"><a th:if="${adminPowers}"
-                                                                        th:href="|/admin/edit-callsheet/${callsheet.getId()}|"
-                                                                        class="knopLink">Edit this callsheet</a>
-                </button>
-            </div>
+        <div class="col-5 offset-5 mb-3">
+            <a th:if="${adminPowers}"
+               th:href="|/admin/edit-callsheet/${callsheet.getId()}|"
+               class="btn btn-primary mb-1 w-100">Edit this callsheet</a>
         </div>
-        <div class="row">
-            <div class="col-5 offset-7">
-                <button class="btn btn-primary w-100 text-left knop"><a th:if="${adminPowers}"
-                                                                        th:href="|/admin/template-callsheet/${callsheet.getId()}|"
-                                                                        class="knopLink">New callsheet using this as a
-                    template</a></button>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-5 offset-7 w-100">
+            <a th:if="${adminPowers}"
+               th:href="|/admin/template-callsheet/${callsheet.getId()}|"
+               class="btn btn-primary mb-1 w-100">New callsheet using this as a
+                template</a>
         </div>
     </div>
     <br><br>
@@ -224,114 +234,125 @@
                             <td class="col-3">crew & cast</td>
                         </tr>
                     </table>
+                    <br><br>
+                    <div id="Materiaal">
+                        <div class="row border-bottom"><h4>Equipment:</h4></div>
+                        <div class="row border">
+                            <br>
+                            <ul>
+                                <li th:each="materiaal:${equipment}">
+                                    <a th:text="${materiaal.getType()}+': '+${materiaal.getName()}+' - '+${materiaal.getSpecifications()}">materiaal</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <br>
-            <div th:if="${adminPowers}" id="Delay">
-                <div class="row border-bottom"><h4>Delay:</h4></div>
-                <div>
-                    <form th:action="@{|/callsheet/${callsheet.getId()}|}" method="POST" id="delayPost">
+                <br>
+                <div th:if="${adminPowers}" id="Delay">
+                    <div class="row border-bottom"><h4>Delay:</h4></div>
+                    <div>
+                        <form th:action="@{|/callsheet/${callsheet.getId()}|}" method="POST" id="delayPost">
+                            <table width="100%">
+                                <tr class="row">
+                                    <td class="col-2"><h6>INCURRED DELAY:</h6></td>
+                                    <td class="col-2">
+                                        <button type="button" class="btn btn-primary w-100" onclick="extraTime(5);"><b>+5
+                                            min</b>
+                                        </button>
+                                    </td>
+                                    <td class="col-2">
+                                        <button type="button" class="btn btn-primary w-100" onclick="extraTime(15);"><b>+15
+                                            min</b>
+                                        </button>
+                                    </td>
+                                    <td class="col-2">
+                                        <button type="button" class="btn btn-primary w-100" onclick="extraTime(30);"><b>+30
+                                            min</b>
+                                        </button>
+                                    </td>
+                                    <td class="col-2"><input id="delayTime" name="delayTime" type="time"
+                                                             class="form-control" max="05:00"
+                                                             value="00:00" min="00:05"></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2"><h6>REASON OF DELAY:</h6></td>
+                                    <td class="col-8"><input type="text" id="delayReason" name="delayReason"
+                                                             class="form-control" required></td>
+                                    <td class="col-2"><input type="submit" id="submitDelay" name="DelayIndienen"
+                                                             class="w-100 btn btn-primary"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <br><br>
+                <div th:if="${adminPowers}" id="Note">
+                    <div class="row border-bottom"><h4>Other remarks</h4></div>
+                    <div>
+                        <form th:action="@{|/callsheet/${callsheet.getId()}/note|}" method="POST" id="notePost">
+                            <table width="100%">
+                                <tr class="row">
+                                    <td class="col-2"><h6>OTHER REMARKS:</h6></td>
+                                    <td class="col-8"><input type="text" id="noteText" name="noteText"
+                                                             class="form-control"
+                                                             required>
+                                    </td>
+                                    <td class="col-2"><input type="submit" id="submitNote" name="noteIndienen"
+                                                             class="w-100 btn btn-primary"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <br><br>
+                <div id="Rapport">
+                    <div class="row border-bottom"><h4>Overview delay's</h4></div>
+                    <div>
                         <table width="100%">
                             <tr class="row">
-                                <td class="col-2"><h6>INCURRED DELAY:</h6></td>
-                                <td class="col-2">
-                                    <button type="button" class="btn btn-primary w-100" onclick="extraTime(5);"><b>+5
-                                        min</b>
-                                    </button>
-                                </td>
-                                <td class="col-2">
-                                    <button type="button" class="btn btn-primary w-100" onclick="extraTime(15);"><b>+15
-                                        min</b>
-                                    </button>
-                                </td>
-                                <td class="col-2">
-                                    <button type="button" class="btn btn-primary w-100" onclick="extraTime(30);"><b>+30
-                                        min</b>
-                                    </button>
-                                </td>
-                                <td class="col-2"><input id="delayTime" name="delayTime" type="time"
-                                                         class="form-control" max="05:00"
-                                                         value="00:00"></td>
-
+                                <td class="col-2"><h6>DATE OF REMARK</h6></td>
+                                <td class="col-1"><h6>TIME</h6></td>
+                                <td class="col-7"><h6>REASON</h6></td>
+                                <td class="col-2"><h6>INCURRED DELAY</h6></td>
                             </tr>
-                            <tr class="row">
-                                <td class="col-2"><h6>REASON OF DELAY:</h6></td>
-                                <td class="col-8"><input type="text" id="delayReason" name="delayReason"
-                                                         class="form-control"></td>
-                                <td class="col-2"><input type="submit" id="submitDelay" name="DelayIndienen"
-                                                         class="w-100 btn btn-primary"></td>
+                            <tr class="row" th:each="delay:${delay}">
+                                <td class="col-2" th:text="${dateToday.toString()}"></td>
+                                <td class="col-1" th:text="${delay.getTime().toString()}">beschrijving</td>
+                                <td class="col-7" th:text="${delay.getReason()}">Locatie</td>
+                                <td class="col-2" th:text="${delay.getDelayDuration()} + ' minutes'"></td>
                             </tr>
                         </table>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <br><br>
-            <div th:if="${adminPowers}" id="Note">
-                <div class="row border-bottom"><h4>Other remarks</h4></div>
-                <div>
-                    <form th:action="@{|/callsheet/${callsheet.getId()}/note|}" method="POST" id="notePost">
+                <br><br>
+                <div id="noteRapport">
+                    <div class="row border-bottom"><h4>Other remarks</h4></div>
+                    <div>
                         <table width="100%">
                             <tr class="row">
-                                <td class="col-2"><h6>OTHER REMARKS:</h6></td>
-                                <td class="col-8"><input type="text" id="noteText" name="noteText" class="form-control">
-                                </td>
-                                <td class="col-2"><input type="submit" id="submitNote" name="noteIndienen"
-                                                         class="w-100 btn btn-primary"></td>
+                                <td class="col-2"><h6>DATE OF REMARK</h6></td>
+                                <td class="col-10"><h6>REMARK</h6></td>
+                            </tr>
+                            <tr class="row" th:each="note:${note}">
+                                <td class="col-2" th:text="${dateToday.toString()}"></td>
+                                <td class="col-10" th:text="${note.getNoteText()}"></td>
                             </tr>
                         </table>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <br><br>
-            <div id="Materiaal">
-                <div class="row border-bottom"><h4>Material:</h4></div>
-                <div class="row border">
-                    <br>
-                    <ul>
-                        <li th:each="materiaal:${equipment}">
-                            <a th:text="${materiaal.getType()}+': '+${materiaal.getName()}+' - '+${materiaal.getSpecifications()}">materiaal</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <br><br>
-            <div id="Rapport">
-                <div class="row border-bottom"><h4>Overview delay's</h4></div>
-                <div>
-                    <table width="100%">
-                        <tr class="row">
-                            <td class="col-2" colspan="2"><h6>TIME</h6></td>
-                            <td class="col-7"><h6>REASON</h6></td>
-                            <td class="col-3"><h6>INCURRED DELAY</h6></td>
-                        </tr>
-                        <tr class="row" th:each="delay:${delay}">
-                            <td class="col-2" th:text="${delay.getTime().toString()}">beschrijving</td>
-                            <td class="col-7" th:text="${delay.getReason()}">Locatie</td>
-                            <td class="col-3" th:text="${delay.getDelayDuration()} + ' minuteS'"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <br><br>
-            <div id="noteRapport">
-                <div class="row border-bottom"><h4>Other remarks</h4></div>
-                <div>
-                    <table width="100%">
-                        <tr class="row" th:each="note:${note}">
-                            <td class="col-2"><h6>OPMERKING</h6></td>
-                            <td class="col-10" th:text="${note.getNoteText()}"></td>
-                        </tr>
-                    </table>
+                <br><br><br>
+                <div class="row">
+                    <div class="col-5">
+                        <a th:href="|/download/${callsheet.id}|" ref="/download" class="btn btn-primary mb-1 w-100">Download
+                            callsheet in Excel</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <br><br>
-    <button class="btn btn-primary knop"><a th:href="|/download/${callsheet.id}|" ref="/download" class="knopLink">Download
-        callsheet in Excel</a></button>
-    <br><br><br><br>
 </div>
-
+<br><br>
+<br><br><br><br>
 <footer>
     <div class="text-center p-2">
         <a href="https://sennmaes.wixsite.com/bullsheets" class="p-2"><i class="far fa-copyright"></i> BULLSHEETS</a>

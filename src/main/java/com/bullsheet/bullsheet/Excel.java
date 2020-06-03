@@ -6,12 +6,14 @@ import com.gembox.spreadsheet.ExcelWorksheet;
 import com.gembox.spreadsheet.SpreadsheetInfo;
 
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Optional;
 
 public class Excel {
 
-    public void fillExcel(Callsheet callsheet, Collection<DayPlanning> dayPlanning, Collection<Equipment> equipment, Collection<IndividualCalltime> individualCalltimes, Collection<Delay> delay,Collection<Note> notes) throws IOException {
+    public void fillExcel(Callsheet callsheet, Collection<DayPlanning> dayPlanning, Collection<IndividualCalltime> individualCalltimes, Collection<Delay> delay,Collection<Note> notes, String date) throws IOException {
         SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
         ExcelFile workbook = ExcelFile.load("TemplateUse.xlsx");
         ExcelWorksheet templateSheet = workbook.getWorksheet(0);
@@ -69,17 +71,19 @@ public class Excel {
             equipmentNr++;
         }
         int delayNr = 80;
+
         for(Delay d: delay){
-            templateSheet.getCell(delayNr, 0).setValue(d.getTime().toString());
-            templateSheet.getCell(delayNr, 1).setValue(d.getReason());
-            templateSheet.getCell(delayNr, 5).setValue(d.getDelayDuration());
+            templateSheet.getCell(delayNr, 0).setValue(date);
+            templateSheet.getCell(delayNr, 1).setValue(d.getTime().toString());
+            templateSheet.getCell(delayNr, 2).setValue(d.getReason());
+            templateSheet.getCell(delayNr, 6).setValue(d.getDelayDuration());
             delayNr++;
         }
         int noteNr =93;
 
         for(Note note: notes){
-            templateSheet.getCell(noteNr, 0).setValue(note.getNoteText());
-            System.out.println(note.getNoteText());
+            templateSheet.getCell(noteNr, 0).setValue(date);
+            templateSheet.getCell(noteNr, 1).setValue(note.getNoteText());
             noteNr++;
         }
         workbook.save("callsheet.xlsx");

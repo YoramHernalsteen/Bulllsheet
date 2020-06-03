@@ -96,29 +96,220 @@ INSERT INTO callsheet (id, date, calltime, production_id, production_company_id,
 INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2020-06-17', '08:00:00', 2, 1, 3);
 INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2020-06-18', '08:00:00', 2, 1, 4);
 
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', '... Weet ik veel...', 0, 0);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 2', '... Weet ik veel...', 0, 0);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Slow motion 1', '... Weet ik veel...', 0, 0);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 1', '... Weet ik veel...', 0, 0);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 2', '... Weet ik veel...', 0, 0);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'walkie-talkies', '... Weet ik veel...', 0, 0);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'Draadloze microzenders', '... Weet ik veel...', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', 'Megapixels: 150 MP', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 2', 'Megapixels: 102MP', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Slow motion 1', '30 000 FPS', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 1', 'Minder dan 5 Decibel', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 2', 'Kan geluiden van minder dan 10 Decibel opvangen', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'walkie-talkies', 'Een range van 150m', 0, 0);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'Draadloze microzenders', 'Micro USB naar USB zender', 0, 0);
 
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', '... Weet ik veel...', 1, 1);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 2', '... Weet ik veel...', 1, 1);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Slow motion 1', '... Weet ik veel...', 1, 1);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 1', '... Weet ik veel...', 1, 1);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 2', '... Weet ik veel...', 1, 1);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'walkie-talkies', '... Weet ik veel...', 1, 1);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'Draadloze microzenders', '... Weet ik veel...', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', 'Megapixels: 102MP', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 2', '53.4 x 40mm ''full frame'' MF sensor', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Slow motion 1', '30 000 FPS', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 1', 'Kunnen geluiden waarnemen van minder dan 5 decibel', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'High pitch filtered 2', 'Kunnen geluiden waarnemen van minder dan 10 decibel', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'walkie-talkies', 'Range van 150 m', 1, 1);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'Draadloze microzenders', 'Micro USB naar USB', 1, 1);
 
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', '... Weet ik veel...', 1, 2);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Blue filter', '... Weet ik veel...', 1, 2);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Draag harnas', '... Weet ik veel...', 1, 2);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'Low pitch filtered 1', '... Weet ik veel...', 1, 2);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'Ultra pitch filtered 2', '... Weet ik veel...', 1, 2);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'walkie-talkies', '... Weet ik veel...', 1, 2);
-INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronica', 'Draadloze microzenders', '... Weet ik veel...', 1, 2);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', 'Infrared vision en Megapixels: 102MP', 1, 2);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'HDR-camera', 'Bruikbaar in extreem lichte situaties', 1, 2);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'Camera Harnass', 'Bruikbaar voor camera met gewicht tot 5kg', 1, 2);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Microphone', 'Ultra pitch filtered 1', 'Moet de zachtste geluiden kunnen oppikken', 1, 2);
+INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Electronics', 'Walkie-talkies', 'Range van tenminste 100m', 1, 2);
+
+--Team scheire
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (0, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (0, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (0, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (0, 3);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (1, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (1, 2);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (1, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (1, 4);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (2, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (2, 3);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (2, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (2, 4);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (3, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (3, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (3, 4);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (3, 3);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (4, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (4, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (4, 5);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (4, 2);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (5, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (5, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (5, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (5, 2);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (6, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (6, 2);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (6, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (6, 5);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (7, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (7, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (7, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (7, 3);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (8, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (8, 2);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (8, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (8, 3);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (9, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (9, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (9, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (9, 4);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (10, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (10, 1);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (10, 5);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (10, 3);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (11, 0);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (11, 2);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (11, 6);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (11, 4);
+
+--de parelvissers
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (12, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (12, 8);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (12, 9);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (12, 10);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (13, 11);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (13, 12);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (13, 13);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (13, 5);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (14, 10);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (14, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (14, 8);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (14, 12);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (15, 10);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (15, 11);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (15, 12);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (15, 9);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (16, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (16, 9);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (16, 11);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (16, 12);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (17, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (17, 10);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (17, 13);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (17, 11);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (18, 10);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (18, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (18, 8);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (18, 12);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (19, 11);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (19, 9);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (19, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (19, 13);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (20, 10);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (20, 12);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (20, 13);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (20, 11);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (21, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (21, 8);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (21, 9);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (21, 13);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (22, 7);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (22, 9);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (22, 11);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (22, 13);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (23, 8);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (23, 10);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (23, 12);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (23, 13);
+
+-- de clan
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (24, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (24, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (24, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (24, 17);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (25, 18);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (25, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (25, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (25, 15);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (26, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (26, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (26, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (26, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (27, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (27, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (27, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (27, 16);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (28, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (28, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (28, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (28, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (29, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (29, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (29, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (29, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (30, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (30, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (30, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (30, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (31, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (31, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (31, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (31, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (32, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (32, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (32, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (32, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (33, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (33, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (33, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (33, 17);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (34, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (34, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (34, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (34, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (35, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (35, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (35, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (35, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (36, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (36, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (36, 17);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (36, 18);
+
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (37, 14);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (37, 15);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (37, 16);
+INSERT INTO CALLSHEET_EQUIPMENT (callsheets_id, equipment_id) values (37, 18);
 
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:00', '9:30', 'Samenkomen op locatie', 'Locatie 1', 0);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:30', '10:00', 'klaarzetten voor opname', 'Locatie 1', 0);
@@ -133,6 +324,13 @@ INSERT INTO day_planning(id, time_start, time_end, description, location, callsh
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '13:00', '15:00', 'opname deel 2', 'Locatie 1', 1);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '15:00', '17:00', 'opname deel 3', 'Locatie 1', 1);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '17:00', '17:45', 'opruimen', 'Locatie 1', 1);
+
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:00', '9:30', 'Samenkomen op locatie', 'Locatie 1', 2);
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:30', '10:00', 'klaarzetten voor opname', 'Locatie 1', 2);
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '10:00', '12:00', 'opname deel 1', 'Locatie 1', 2);
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '13:00', '15:00', 'opname deel 2', 'Locatie 1', 2);
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '15:00', '17:00', 'opname deel 3', 'Locatie 1', 2);
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '17:00', '17:45', 'opruimen', 'Locatie 1', 2);
 
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:00', '9:30', 'Samenkomen op locatie', 'Locatie 1', 3);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:30', '10:00', 'klaarzetten voor opname', 'Locatie 1', 3);
@@ -798,5 +996,6 @@ insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (n
 insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'13:00',37,10);
 insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'15:45',37,11);
 insert into INDIVIDUAL_CALLTIME  (ID, CALLTIME, CALLSHEET_ID, USER_ID) values (nextval('individual_seq'),'16:15',37,12);
+
 
 

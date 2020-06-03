@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <title>Callsheet Editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
-    <script th:src="@{/js/dynamicForm.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css/}" href="../css/style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
@@ -17,22 +16,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
+    <script th:src="@{/js/dynamicForm.js}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-<div th:unless="${adminPowers}">
-    <h1>You Shall not pass!! Or see this page!!</h1>
-    <a href="/">Home</a>
+<header class="row">
+    <nav class="col text-center nav-bg">
+        <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+        <a class="nav-item btn btn-nav" href="/">Home</a>
+        <a th:if="${callsheet} and ${adminPowers} and ${allowedToSee}" class="nav-item btn btn-nav"
+           th:href="|/callsheet/${callsheet.getId()}|">Cancel new</a>
+    </nav>
+</header>
+
+<div th:if="(${callsheet} and not ${allowedToSee}) or not ${adminPowers}" class="container text-center py-2">
+    <div class="my-2">
+        <h2>You do not have the authorisation to view this page!</h2>
+    </div>
+</div>
+<div th:if="${adminPowers} and not ${callsheet}" class="container text-center py-2">
+    <div class="my-2">
+        <h2>This is not the callsheet you were looking for because it doesn't exist!</h2>
+    </div>
 </div>
 
-<div th:if="${adminPowers}">
-    <header class="row">
-        <nav class="col text-center nav-bg">
-            <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
-            <a class="btn btn-primary" href="/">Home</a>
-        </nav>
-    </header>
+<div th:if="${allowedToSee} and ${adminPowers} and ${callsheet}">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -60,7 +69,7 @@
                     </li>
                 </ul>
                 <div>
-                    <form class="tab-content" method="post" id="myForm">
+                    <form class="tab-content" method="post" id="myForm" onsubmit="return dateSubmissionCheck();">
                         <div class="tab-pane active" id="productionInfo">
                             <table width="100%" class="table table-striped">
                                 <thead class="thead-dark">
@@ -76,13 +85,19 @@
                                         relative to the callsheet used as template. If this is not the required date,
                                         you can manually select an other.
                                     </p>
-                                    <td class="col-6"><input type="date" id="callsheetDate" name="callsheetDate"
-                                                             th:value="${correctedDate}"
-                                                             class="w-100 form-control">
+                                    <td class="col-6 popup">
+                                        <span class="popuptext" id="datePopup" style="visibility:hidden">A callsheet with this date already exists!</span>
+                                        <input type="date" id="callsheetDate" name="callsheetDate"
+                                               th:value="${correctedDate}" required onchange="datePoppers();"
+                                               class="w-100 form-control" th:min="${date}">
+                                        <ul id="futureSheets" style="display: none">
+                                            <li th:each="sheet:${futureSheets}" th:value="${sheet.getDate()}">date</li>
+                                        </ul>
                                     </td>
-                                    <td class="col-2"><input type="time" id="callsheetTime" name="callsheetTime"
-                                                             th:value="${callsheet.getCalltime()}"
-                                                             class="w-100 form-control"></td>
+                                    <td class="col-2">
+                                        <input type="time" id="callsheetTime" name="callsheetTime"
+                                               th:value="${callsheet.getCalltime()}" required
+                                               class="w-100 form-control"></td>
                                 </tr>
                                 </tbody>
                             </table>

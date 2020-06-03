@@ -16,7 +16,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     Iterable<User> findByCallsheets(Callsheet callsheet);
     Optional<User> findByUsername(String username);
 
-
     @Query("SELECT u.username FROM User u where u.username = :name")
     Optional<String> findAllUsernames(@Param("name") String name);
 

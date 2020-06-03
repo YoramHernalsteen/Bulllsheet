@@ -37,23 +37,23 @@
                 <li class="nav-item">
                     <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
-                    <a th:if="${callsheet}" class="nav-link m-2 btn btn-nav float-right"
+                <li class="nav-item" th:if="${allowedToSee}">
+                    <a th:if="${callsheet}" class="nav-link m-2 btn btn-nav float-right activeMainLink"
                        th:href="|/compactCallsheet/${production.getId()}|">Overview</a>
                     <a th:unless="${callsheet}" class="nav-link m-2 btn btn-nav float-right" href="#">Overview</a>
                 </li>
-                <li class="nav-item" th:if="${adminPowers} and ${callsheet}">
+                <li class="nav-item" th:if="${adminPowers} and ${callsheet} and ${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${callsheet.getId()}|">Callsheet</a>
                 </li>
-                <li class="nav-item" th:if="${adminPowers}">
+                <li class="nav-item" th:if="${adminPowers} and ${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/admin/new-callsheet/${production.getId()}|">New Callsheet</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/callsheetlist/${production.getId()}|">Callsheets list</a>
                 </li>
-                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                <li class="nav-item" th:if="${adminPowers} and ${production} and ${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/user-list/|">User-List</a>
                 </li>
@@ -66,12 +66,23 @@
     </div>
 </nav>
 
-<h1 class="top" th:unless="${callsheet}">There are no callsheets coming in the upcoming week for this production.</h1>
-<div th:if="${callsheet}" class="top">
+<div th:unless="${allowedToSee}" class="container top">
+    <div class="my-2">
+        <h2>You do not have the authorisation to view this page!</h2>
+    </div>
+</div>
+
+<div class="container top" th:unless="${callsheet}">
+    <div class="my-2">
+        <h2>There are no callsheets coming in the upcoming week for this production.</h2>
+    </div>
+</div>
+
+<div th:if="${callsheet} and ${allowedToSee}" class="top">
     <div class="container">
         <br>
         <div id="callsheetDate">
-            <h2 th:unless="${sameDateCallsheet}" class="text-danger">This is a future callsheet, not of today!</h2>
+            <h2 th:unless="${sameDateCallsheet}" class="text-danger">This is a future callsheet, not for today!</h2>
             <h1 th:text="|Today`s date: ${currentDate}|">current date</h1>
             <h1 th:text="|Callsheet date: ${correctedDate}|">callsheet date</h1>
         </div>
@@ -81,9 +92,10 @@
             <div class="list list-row card pageContent" id="sortable" data-sortable-id="0" aria-dropeffect="move">
                 <div class="list-item" id="1" data-id="0" data-item-sortable-id="0" draggable="true" role="option"
                      aria-grabbed="false" style="">
-                    <div class="card-header justify-content-center text-uppercase pb-0" id="headingOne"
+                    <div class="card-header justify-content-center text-uppercase pb-0 chHover" id="headingOne"
                          style="text-align: center;">
                         <a data-toggle="collapse" data-target="#collapseOne">
+                            <i class="fas fa-ellipsis-v float-left"></i>
                             <div th:if="${activeRow}">
                                 <p>Ongoing:</p>
                                 <li th:each="agenda:${planning}">
@@ -96,6 +108,7 @@
                             <div th:unless="${activeRow}">
                                 <p>PLANNING</p>
                             </div>
+                            <i class="fas fa-chevron-down"></i>
                         </a>
                     </div>
 
@@ -120,13 +133,15 @@
                 </div>
                 <div class="list-item" id="2" data-id="2" data-item-sortable-id="0" draggable="true" role="option"
                      aria-grabbed="false" style="">
-                    <div class="card-header pb-0" id="headingTwo" style="text-align: center;">
+                    <div class="card-header pb-0 chHover" id="headingTwo" style="text-align: center;">
                         <a data-toggle="collapse" data-target="#collapseTwo">
+                            <i class="fas fa-ellipsis-v float-left"></i>
                             <div class="weather-container">
                                 <div class="weather-icon">
                                     <img src="/icons/unknown.png" alt="">
                                 </div>
                             </div>
+                            <i class="fas fa-chevron-down"></i>
                         </a>
                     </div>
 
@@ -152,10 +167,12 @@
                 </div>
                 <div class="list-item" id="3" data-id="3" data-item-sortable-id="0" draggable="true" role="option"
                      aria-grabbed="false" style="">
-                    <div class="card-header text-uppercase pb-0" id="headingThree" style="text-align: center;">
+                    <div class="card-header text-uppercase pb-0 chHover" id="headingThree" style="text-align: center;">
                         <a data-toggle="collapse" data-target="#collapseThree">
+                            <i class="fas fa-ellipsis-v float-left"></i>
                             <p th:text="${callsheet.getShootingLocation().getAdres()}">*fetching adres from input*</p>
                             <p th:text="${callsheet.getShootingLocation().getZipcode()}+', '+${callsheet.getShootingLocation().getCity()}"></p>
+                            <i class="fas fa-chevron-down"></i>
                         </a>
                     </div>
 
@@ -167,9 +184,11 @@
                 </div>
                 <div class="list-item" id="4" data-id="4" data-item-sortable-id="0" draggable="true" role="option"
                      aria-grabbed="false" style="">
-                    <div class="card-header text-uppercase pb-0" id="headingFour">
-                        <a data-toggle="collapse" data-target="#collapseFour" style="text-align: center;">
+                    <div class="card-header text-uppercase pb-0 chHover" id="headingFour" style="text-align: center;">
+                        <a data-toggle="collapse" data-target="#collapseFour">
+                            <i class="fas fa-ellipsis-v float-left"></i>
                             <p>Equipment</p>
+                            <i class="fas fa-chevron-down"></i>
                         </a>
                     </div>
 
@@ -187,10 +206,12 @@
                 </div>
                 <div class="list-item" id="5" data-id="5" data-item-sortable-id="0" draggable="true" role="option"
                      aria-grabbed="false" style="">
-                    <div class="card-header text-uppercase pb-0" id="headingFive">
-                        <a data-toggle="collapse" data-target="#collapseFive" style="text-align: center;">
+                    <div class="card-header text-uppercase pb-0 chHover" id="headingFive" style="text-align: center;">
+                        <a data-toggle="collapse" data-target="#collapseFive">
+                            <i class="fas fa-ellipsis-v float-left"></i>
                             <p class="mb-0">Contact:</p>
                             <p th:text="${callsheet.getProductionCompany().getName()}"></p>
+                            <i class="fas fa-chevron-down"></i>
                         </a>
                     </div>
 
@@ -205,10 +226,9 @@
             </div>
         </div>
     </div>
-    <br><br>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+            <div class="col-md-12 d-flex flex-column justify-content-center pt-5 pb-5">
                 <div class="row">
                     <div class="col-lg-6 col-md-8 mx-auto">
                         <div class="card rounded shadow shadow-sm">
@@ -236,7 +256,6 @@
         </div>
     </div>
 </div>
-<br><br>
 <footer>
     <div class="text-center p-2">
         <a href="https://sennmaes.wixsite.com/bullsheets" class="p-2"><i class="far fa-copyright"></i> BULLSHEETS</a>

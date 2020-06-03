@@ -6,6 +6,10 @@
  #f3f3f2
  */
 
+.activeMainLink {
+    color: #f7c66e!important;
+}
+
 .popup {
     position: relative;
     display: inline-block;
@@ -180,13 +184,9 @@ table {
 
 }
 
-.accordion .card-header:hover {
+.chHover:hover {
     background-color:#f7c66e;
-    border-color: #f7c66e;
     color: #0d1524;
-    font-family: 'Roboto';
-    max-width: 100%;
-    /* font-weight: bold; */
 }
 
 /*----------------------- Button stijl om rij te verwijderen in edit callsheet*/
@@ -276,6 +276,7 @@ table {
 .iconHome:hover {
     color: #f7c66e;
 }
+
 
 
 

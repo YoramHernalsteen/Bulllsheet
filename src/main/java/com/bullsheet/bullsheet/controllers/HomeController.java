@@ -109,7 +109,6 @@ public class HomeController {
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
-
         User activeUser = null;
         Optional<User> optionalUser = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
         if (optionalUser.isPresent()) activeUser = optionalUser.get();
@@ -208,6 +207,9 @@ public class HomeController {
                     request.getSession().setAttribute("function", validationTest.get().getFunction());
                     request.getSession().setAttribute("jobtitle", validationTest.get().getJobTitle());
                     request.getSession().setAttribute("userrestrictions", validationTest.get().getUserRestrictions());
+                    request.getSession().setAttribute("callsheetIds", extractCallsheetIds(callsheetRepository.findByUsers(validationTest.get())));
+                    request.getSession().setAttribute("productionIds", extractProductionIds(productionRepository.findByUsers(validationTest.get())));
+
                 } else {
                     logger.info("pass not correct");
                     model.addAttribute("errorcode", "Username or password are not correct");
@@ -225,6 +227,22 @@ public class HomeController {
         }
 
         return "redirect:/";
+    }
+
+    public ArrayList<Integer> extractCallsheetIds(Collection<Callsheet> callsheets) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Callsheet sheet : callsheets) {
+            ids.add(sheet.getId());
+        }
+        return ids;
+    }
+
+    public ArrayList<Integer> extractProductionIds(Collection<Production> production) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Production p : production) {
+            ids.add(p.getId());
+        }
+        return ids;
     }
 
     @RequestMapping("/logout")
@@ -249,10 +267,14 @@ public class HomeController {
         DayPlanning lastRowPlanning = null;
         boolean sameDateCallsheet = true;
         boolean isAdmin = false;
+        boolean allowedToSee = false;
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
 
         Optional<Production> optionalProduction = productionRepository.findById(id);
-        if (optionalProduction.isPresent()) production = optionalProduction.get();
+        if (optionalProduction.isPresent()) {
+            production = optionalProduction.get();
+            if (((ArrayList) request.getSession().getAttribute("productionIds")).contains(id)) allowedToSee = true;
+        }
         Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, date);
         if (optionalCallsheet.isPresent()) callsheet = optionalCallsheet.get();
         else {
@@ -270,13 +292,13 @@ public class HomeController {
             jRequest.setRestrictToCountryCode("be");
             JOpenCageResponse response = jOpenCageGeocoder.forward(jRequest);
             JOpenCageLatLng result = response.getFirstPosition();
-            logger.info(result.getLat() + " + " + result.getLng());
+            logger.info("Location coordiantes: " + result.getLat() + " + " + result.getLng());
             navUrl = "https://www.waze.com/ul?ll=" + result.getLat() + "%2C+" + result.getLng() + "&navigate=yes&zoom=17";
             planning = dayPlanningRepository.findByCallsheet(optionalCallsheet.get());
             if (planning.isEmpty()) {
                 planning = null;
             }
-            equipment = equipmentRepository.findByProduction(optionalProduction.get());
+            equipment = equipmentRepository.findByCallsheets(callsheet);
             if (equipment.isEmpty()) {
                 equipment = null;
             }
@@ -303,6 +325,7 @@ public class HomeController {
         model.addAttribute("equipment", equipment);
         model.addAttribute("activeRow", activeRow);
         model.addAttribute("adminPowers", isAdmin);
+        model.addAttribute("allowedToSee", allowedToSee);
         model.addAttribute("sameDateCallsheet", sameDateCallsheet);
 
         return "compactCallsheet";
@@ -315,12 +338,17 @@ public class HomeController {
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
-
+        getRealOrTestValues();
         Callsheet callsheet = null;
         String correctedDate = null;
-        Production production = null;
+        String navUrl = null;
+        Collection<Delay> delay = null;
+        Collection<Note> note = null;
         Collection<IndividualCalltime> individualCalltimes = null;
+        Collection<DayPlanning> planning = null;
+        Collection<Equipment> equipment = null;
         boolean isAdmin = false;
+        boolean allowedToSee = false;
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
 
         Optional<Callsheet> optionalCallsheet = callsheetRepository.findById(id);
@@ -328,26 +356,26 @@ public class HomeController {
             callsheet = optionalCallsheet.get();
             individualCalltimes = individualCalltimeRepository.findByCallsheet(callsheet);
             correctedDate = dateFormatter.format(callsheet.getDate());
+
+            if ((((ArrayList) request.getSession().getAttribute("callsheetIds")).contains(id) && date.isAfter(callsheet.getDate())) ||
+                    (isAdmin && ((ArrayList) request.getSession().getAttribute("productionIds")).contains(callsheet.getProduction().getId())))
+                allowedToSee = true;
+            String shootingLoc = callsheet.getShootingLocation().getAdres() + ", " + callsheet.getShootingLocation().getZipcode() + " " + callsheet.getShootingLocation().getCity() + ", Belgium";
+            JOpenCageForwardRequest jRequest = new JOpenCageForwardRequest(shootingLoc);
+            jRequest.setRestrictToCountryCode("be");
+            JOpenCageResponse response = jOpenCageGeocoder.forward(jRequest);
+            JOpenCageLatLng result = response.getFirstPosition();
+            logger.info(result.getLat() + " + " + result.getLng());
+            navUrl = "https://www.waze.com/ul?ll=" + result.getLat() + "%2C+" + result.getLng() + "&navigate=yes&zoom=17";
+            planning = dayPlanningRepository.findByCallsheet(callsheet);
+            if (planning.isEmpty()) planning = null;
+            equipment = callsheet.getEquipment();
+            if (equipment.isEmpty()) equipment = null;
+            delay = delayRepository.findByCallsheet(callsheet);
+            note = noteRepository.findByCallsheet(callsheet);
+            equipment = callsheet.getEquipment();
         }
-        Optional<Production> optionalProduction = productionRepository.findById(id);
-        if (optionalProduction.isPresent()) production = optionalProduction.get();
-        String shootingLoc = callsheet.getShootingLocation().getAdres() + ", " + callsheet.getShootingLocation().getZipcode() + " " + callsheet.getShootingLocation().getCity() + ", Belgium";
-        JOpenCageForwardRequest jRequest = new JOpenCageForwardRequest(shootingLoc);
-        jRequest.setRestrictToCountryCode("be");
-        JOpenCageResponse response = jOpenCageGeocoder.forward(jRequest);
-        JOpenCageLatLng result = response.getFirstPosition();
-        logger.info(result.getLat() + " + " + result.getLng());
-        String navUrl = "https://www.waze.com/ul?ll=" + result.getLat() + "%2C+" + result.getLng() + "&navigate=yes&zoom=17";
-        Collection<DayPlanning> planning = dayPlanningRepository.findByCallsheet(optionalCallsheet.get());
-        if (planning.isEmpty()) {
-            planning = null;
-        }
-        Collection<Equipment> equipment = equipmentRepository.findByProduction(production);
-        if (equipment.isEmpty()) {
-            equipment = null;
-        }
-        Collection<Delay> delay = delayRepository.findByCallsheet(callsheet);
-        Collection<Note> note = noteRepository.findByCallsheet(callsheet);
+
         model.addAttribute("crew", userRepository.findByFunctionAndCallsheets("Crew", callsheet));
         model.addAttribute("casting", userRepository.findByFunctionAndCallsheets("Cast", callsheet));
         model.addAttribute("callsheet", callsheet);
@@ -355,11 +383,13 @@ public class HomeController {
         model.addAttribute("username", request.getSession().getAttribute("username"));
         model.addAttribute("wazeurl", navUrl);
         model.addAttribute("planning", planning);
-        model.addAttribute("equipment", callsheet.getEquipment());
+        model.addAttribute("equipment", equipment);
         model.addAttribute("calltimes", individualCalltimes);
         model.addAttribute("adminPowers", isAdmin);
+        model.addAttribute("allowedToSee", allowedToSee);
         model.addAttribute("delay", delay);
         model.addAttribute("note", note);
+        model.addAttribute("dateToday", dateFormatter.format(date));
         return "callsheet";
     }
 
@@ -378,11 +408,14 @@ public class HomeController {
 
     public void createExcel(Integer id) throws IOException {
         Callsheet callsheet = null;
+        LocalDate localDate = java.time.LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        String date = formatter.format(localDate);
         Optional<Callsheet> optionalCallsheet = callsheetRepository.findById(id);
         if (optionalCallsheet.isPresent()) {
             callsheet = optionalCallsheet.get();
             Excel excel = new Excel();
-            excel.fillExcel(callsheet, dayPlanningRepository.findByCallsheet(callsheet), equipmentRepository.findByProduction(callsheet.getProduction()), individualCalltimeRepository.findByCallsheet(callsheet), delayRepository.findByCallsheet(callsheet), noteRepository.findByCallsheet(callsheet));
+            excel.fillExcel(callsheet, dayPlanningRepository.findByCallsheet(callsheet), individualCalltimeRepository.findByCallsheet(callsheet), delayRepository.findByCallsheet(callsheet), noteRepository.findByCallsheet(callsheet), date);
         }
     }
 
@@ -442,12 +475,15 @@ public class HomeController {
         LocalDate parsedSearchDateStart = null;
         LocalDate parsedSearchDateEnd = null;
         boolean isAdmin = false;
+        boolean allowedToSee = false;
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
         Optional<User> optionalUser = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
         if (optionalUser.isPresent()) user = optionalUser.get();
         Optional<Production> optionalProduction = productionRepository.findById(id);
         if (optionalProduction.isPresent()) {
             production = optionalProduction.get();
+            if (((ArrayList) request.getSession().getAttribute("productionIds")).contains(production.getId()))
+                allowedToSee = true;
             boolean betweenSearchCondition = searchDateStart != null && searchDateEnd != null && !searchDateStart.isEmpty() && !searchDateEnd.isEmpty();
             if (isAdmin) {
                 if (searchDate != null && !searchDate.isEmpty()) {
@@ -494,7 +530,7 @@ public class HomeController {
         model.addAttribute("searchDateStart", parsedSearchDateStart);
         model.addAttribute("searchDateEnd", parsedSearchDateEnd);
         model.addAttribute("adminPowers", isAdmin);
-
+        model.addAttribute("allowedToSee", allowedToSee);
         return "callsheetlist";
     }
 

@@ -123,7 +123,6 @@ public class Callsheet {
                 ", date=" + date +
                 ", calltime=" + calltime +
                 ", production=" + production +
-                ", productionCompany=" + productionCompany +
                 ", shootingLocation=" + shootingLocation +
                 '}';
     }

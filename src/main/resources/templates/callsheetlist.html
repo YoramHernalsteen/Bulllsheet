@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1 th:unless="${production}" class="top">No valid production was selected</h1>
-
 
 <nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
     <div class=" container">
@@ -30,19 +28,19 @@
                 <li class="nav-item">
                     <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item" th:if="${production}">
+                <li class="nav-item" th:if="${production} and ${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/compactCallsheet/${production.getId()}|">Overview</a>
                 </li>
-                <li class="nav-item" th:if="${adminPowers} and ${activeCallsheetId}">
+                <li class="nav-item" th:if="${adminPowers} and ${activeCallsheetId} and ${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${activeCallsheetId-1}|">Callsheet</a>
                 </li>
-                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                <li class="nav-item" th:if="${adminPowers} and ${production} and ${allowedToSee}">
                     <a class="nav-link m-2 btn btn-nav float-right"
                        th:href="|/admin/new-callsheet/${production.getId()}|">New Callsheet</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link m-2 btn btn-nav float-right"
+                <li class="nav-item" th:if="${production} and ${allowedToSee}">
+                    <a class="nav-link m-2 btn btn-nav float-right activeMainLink"
                        th:href="|/callsheetlist/${production.getId()}|">Callsheets list</a>
                 </li>
                 <li class="nav-item" th:if="${adminPowers} and ${production}">
@@ -58,7 +56,19 @@
     </div>
 </nav>
 
-<div th:if="${production}">
+<div th:if="${production} and not ${allowedToSee}" class="container top text-center">
+    <div class="my-2">
+        <h2>You do not have the authorisation to view this page!</h2>
+    </div>
+</div>
+
+<div th:unless="${production}" class="container top text-center">
+    <div class="my-2">
+        <h2>This is not the production you were looking for because it doesn't exist!</h2>
+    </div>
+</div>
+
+<div th:if="${production} and ${allowedToSee}">
     <div class="container top">
         <div class="row">
             <div class="col">

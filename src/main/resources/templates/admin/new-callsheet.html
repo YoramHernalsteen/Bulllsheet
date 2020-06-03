@@ -12,55 +12,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-<div th:unless="${adminPowers}">
-    <h1>You Shall not pass!! Or see this page!!</h1>
-    <a href="/">Home</a>
+<nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+
+        <button class="navbar-toggler" type="button"
+                data-toggle="collapse"
+                data-target="#navbarBull"
+                aria-controls="navbarBull" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarBull">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item" th:if="${allowedToSee}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/compactCallsheet/${production.getId()}|">Overview</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${activeCallsheetId} and ${allowedToSee}">
+                    <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${activeCallsheetId-1}|">Callsheet</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${allowedToSee}">
+                    <a class="nav-link m-2 btn btn-nav float-right activeMainLink" href="#">New Callsheet</a>
+                </li>
+                <li class="nav-item" th:if="${allowedToSee}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/callsheetlist/${production.getId()}|">Callsheets list</a>
+                </li>
+                <li class="nav-item" th:if="${adminPowers} and ${production}">
+                    <a class="nav-link m-2 btn btn-nav float-right"
+                       th:href="|/user-list/|">User-List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout <i
+                            class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div th:if="(${production} and not ${allowedToSee}) or not ${adminPowers}" class="container top text-center">
+    <div class="my-2">
+        <h2>You do not have the authorisation to view this page!</h2>
+    </div>
 </div>
 
-<div th:if="${adminPowers}">
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark nav-bg">
-        <div class="container">
-            <a class="navbar-brand" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+<div th:if="${adminPowers} and not ${production}" class="container top text-center">
+    <div class="my-2">
+        <h2>This is not the production you were looking for because it doesn't exist!</h2>
+    </div>
+</div>
 
-            <button class="navbar-toggler" type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarBull"
-                    aria-controls="navbarBull" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarBull">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link m-2 btn btn-nav float-right" href="/">Home <span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-2 btn btn-nav float-right"
-                           th:href="|/compactCallsheet/${production.getId()}|">Overview</a>
-                    </li>
-                    <li class="nav-item" th:if="${adminPowers} and ${activeCallsheetId}">
-                        <a class="nav-link m-2 btn btn-nav float-right" th:href="|/callsheet/${activeCallsheetId-1}|">Callsheet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-2 btn btn-nav float-right" href="#">New Callsheet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-2 btn btn-nav float-right"
-                           th:href="|/callsheetlist/${production.getId()}|">Callsheets list</a>
-                    </li>
-                    <li class="nav-item" th:if="${adminPowers} and ${production}">
-                        <a class="nav-link m-2 btn btn-nav float-right"
-                           th:href="|/user-list/|">User-List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link m-2 btn btn-nav float-right" href="/logout">Logout <i
-                                class="fas fa-sign-out-alt"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+<div th:if="${production} and ${adminPowers} and ${allowedToSee}">
     <div class="container top">
         <div class="row mb-5">
             <div class="col-12 text-center pt-3">

@@ -76,18 +76,16 @@ public class AdminController {
         Callsheet callsheet = null;
         String correctedDate = null;
         boolean isAdmin = false;
+        boolean allowedToSee = false;
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
 
         Optional<Callsheet> optionalCallsheet = callsheetRepository.findById(id);
         if (optionalCallsheet.isPresent()) {
             callsheet = optionalCallsheet.get();
             correctedDate = dateFormatter.format(callsheet.getDate());
+            if (((ArrayList) request.getSession().getAttribute("productionIds")).contains(callsheet.getProduction().getId()))
+                allowedToSee = true;
         }
-        model.addAttribute("callsheet", callsheet);
-        model.addAttribute("correctedDate", correctedDate);
-        model.addAttribute("users", userRepository.findByCallsheets(callsheet));
-        model.addAttribute("planning", dayPlanningRepository.findByCallsheet(callsheet));
-        model.addAttribute("equipment", equipmentRepository.findByCallsheets(callsheet));
         Collection<IndividualCalltime> ict = individualCalltimeRepository.findByCallsheet(callsheet);
         ArrayList<IndividualCalltime> castICT = new ArrayList<>();
         ArrayList<IndividualCalltime> crewICT = new ArrayList<>();
@@ -98,9 +96,15 @@ public class AdminController {
                 crewICT.add(i);
             }
         }
+        model.addAttribute("callsheet", callsheet);
+        model.addAttribute("correctedDate", correctedDate);
+        model.addAttribute("users", userRepository.findByCallsheets(callsheet));
+        model.addAttribute("planning", dayPlanningRepository.findByCallsheet(callsheet));
+        model.addAttribute("equipment", equipmentRepository.findByCallsheets(callsheet));
         model.addAttribute("castICT", castICT);
         model.addAttribute("crewICT", crewICT);
         model.addAttribute("adminPowers", isAdmin);
+        model.addAttribute("allowedToSee", allowedToSee);
         return "admin/edit-callsheet";
     }
 
@@ -116,10 +120,14 @@ public class AdminController {
         Integer activeCallsheetId = null;
         Production production = null;
         boolean isAdmin = false;
+        boolean allowedToSee = false;
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
         Optional<Production> optionalProduction = productionRepository.findById(id);
         if (optionalProduction.isPresent()) {
             production = optionalProduction.get();
+            if (((ArrayList) request.getSession().getAttribute("productionIds")).contains(production.getId()))
+                allowedToSee = true;
+
             futureCallsheets = callsheetRepository.findAllByProductionAndDateAfter(production, date.minusDays(1));
             Optional<Callsheet> optionalCallsheet = callsheetRepository.findByProductionAndDateEquals(production, date);
             if (optionalCallsheet.isPresent()) activeCallsheetId = optionalCallsheet.get().getId() + 1;
@@ -134,6 +142,7 @@ public class AdminController {
         model.addAttribute("adminPowers", isAdmin);
         model.addAttribute("futureSheets", futureCallsheets);
         model.addAttribute("activeCallsheetId", activeCallsheetId);
+        model.addAttribute("allowedToSee", allowedToSee);
         return "admin/new-callsheet";
     }
 
@@ -143,21 +152,22 @@ public class AdminController {
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
+        getRealOrTestValues();
+        Collection<Callsheet> futureCallsheets = null;
         Callsheet callsheet = null;
         LocalDate correctedDate = null;
         boolean isAdmin = false;
+        boolean allowedToSee = false;
         if (request.getSession().getAttribute("userrestrictions").equals("admin")) isAdmin = true;
 
         Optional<Callsheet> optionalCallsheet = callsheetRepository.findById(id);
         if (optionalCallsheet.isPresent()) {
             callsheet = optionalCallsheet.get();
             correctedDate = callsheet.getDate().plusDays(1);
+            if (((ArrayList) request.getSession().getAttribute("productionIds")).contains(callsheet.getProduction().getId()))
+                allowedToSee = true;
+            futureCallsheets = callsheetRepository.findAllByProductionAndDateAfter(callsheet.getProduction(), date.minusDays(1));
         }
-        model.addAttribute("callsheet", callsheet);
-        model.addAttribute("correctedDate", correctedDate);
-        model.addAttribute("users", userRepository.findByCallsheets(callsheet));
-        model.addAttribute("planning", dayPlanningRepository.findByCallsheet(callsheet));
-        model.addAttribute("equipment", equipmentRepository.findByCallsheets(callsheet));
         Collection<IndividualCalltime> ict = individualCalltimeRepository.findByCallsheet(callsheet);
         ArrayList<IndividualCalltime> castICT = new ArrayList<>();
         ArrayList<IndividualCalltime> crewICT = new ArrayList<>();
@@ -168,9 +178,17 @@ public class AdminController {
                 crewICT.add(i);
             }
         }
+        model.addAttribute("callsheet", callsheet);
+        model.addAttribute("futureSheets", futureCallsheets);
+        model.addAttribute("correctedDate", correctedDate);
+        model.addAttribute("users", userRepository.findByCallsheets(callsheet));
+        model.addAttribute("planning", dayPlanningRepository.findByCallsheet(callsheet));
+        model.addAttribute("equipment", equipmentRepository.findByCallsheets(callsheet));
         model.addAttribute("castICT", castICT);
         model.addAttribute("crewICT", crewICT);
         model.addAttribute("adminPowers", isAdmin);
+        model.addAttribute("allowedToSee", allowedToSee);
+        model.addAttribute("date", date);
         return "admin/template-callsheet";
     }
 
