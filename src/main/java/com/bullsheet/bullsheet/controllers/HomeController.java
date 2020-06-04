@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Optional;
 
+@Transactional
 @Controller
 public class HomeController {
 
@@ -131,7 +133,7 @@ public class HomeController {
         return "register";
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public String registerPost(HttpServletRequest request, Model model, @ModelAttribute User user) {
         if (user.registerValidationEmptyCheck()) {
             Optional<User> validationTest = userRepository.findByUsername(user.getUsername());
@@ -195,7 +197,8 @@ public class HomeController {
             throws NoSuchAlgorithmException {
         if (user.loginValidationEmptyCheck()) {
             Optional<User> validationTest = userRepository.findByUsername(user.getUsername());
-            if (validationTest.isPresent()) {
+            System.out.println(validationTest.get().getUserDisabled());
+            if (validationTest.isPresent() && validationTest.get().getUserDisabled().equals("False")) {
                 logger.info("Username exists. Proceed login");
                 String userPasswordGiven = toHexString(getSHA(user.getPassword()));
                 if (validationTest.get().getPassword().equals(userPasswordGiven)) {
@@ -217,7 +220,7 @@ public class HomeController {
                 }
             } else {
                 logger.info("Username is not registered");
-                model.addAttribute("errorcode", "Username or password are not correct");
+                model.addAttribute("errorcode", "Username or password are not correct. Account could also be disabled.");
                 return "login";
             }
         } else {
@@ -375,7 +378,10 @@ public class HomeController {
             note = noteRepository.findByCallsheet(callsheet);
             equipment = callsheet.getEquipment();
         }
-
+        User user =null;
+        Optional<User> optionalUser = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
+        if (optionalUser.isPresent()) user = optionalUser.get();
+        System.out.println(userRepository);
         model.addAttribute("crew", userRepository.findByFunctionAndCallsheets("Crew", callsheet));
         model.addAttribute("casting", userRepository.findByFunctionAndCallsheets("Cast", callsheet));
         model.addAttribute("callsheet", callsheet);
@@ -635,6 +641,11 @@ public class HomeController {
             return "redirect:/login";
         }
 
+        Boolean perms = (Boolean) request.getSession().getAttribute("userrestrictions").equals("admin");
+        if (perms != true) {
+            return "redirect:/";
+        }
+
         model.addAttribute("actors", userRepository.getUsersByJobTitle("Acteur"));
         model.addAttribute("sounds", userRepository.getUsersByJobTitle("Geluid"));
         model.addAttribute("cameras", userRepository.getUsersByJobTitle("Camera"));
@@ -651,6 +662,12 @@ public class HomeController {
             return "redirect:/login";
         }
 
+        Boolean perms = (Boolean) request.getSession().getAttribute("userrestrictions").equals("admin");
+        if (perms != true) {
+            return "redirect:/";
+        }
+        
+
         User user = userRepository.findById(id).get();
         model.addAttribute("user", user);
 
@@ -660,12 +677,18 @@ public class HomeController {
 
     @PostMapping("/user-list/edit-user/{id}")
     public String editUserFromListPost(HttpServletRequest request, Model model, @PathVariable Integer id, @RequestParam String function, @RequestParam String jobTitle,
-                                       @RequestParam String userGroup) {
+                                       @RequestParam String userGroup, @RequestParam String userDisabled) {
         String loggedin = (String) request.getSession().getAttribute("loggedin");
 
         if (loggedin == null || loggedin.isEmpty()) {
             return "redirect:/login";
         }
+
+        Boolean perms = (Boolean) request.getSession().getAttribute("userrestrictions").equals("admin");
+        if (perms != true) {
+            return "redirect:/";
+        }
+
         String button = request.getParameter("submit");
         if ("Edit".equals(button)) {
             User user;
@@ -675,16 +698,11 @@ public class HomeController {
                 user.setFunction(function);
                 user.setJobTitle(jobTitle);
                 user.setUserRestrictions(userGroup);
+                user.setUserDisabled(userDisabled);
                 userRepository.save(user);
             }
-        } else if ("Delete User".equals(button)) {
-            User user;
-            Optional<User> optionalUser = userRepository.findById(id);
-            if (optionalUser.isPresent()) {
-                user = optionalUser.get();
-                userRepository.deleteById(id);
-            }
         }
+
         return "redirect:/user-list";
 
     }

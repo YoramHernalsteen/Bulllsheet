@@ -20,6 +20,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private String userRestrictions; //plain user or admin rights
+    private String userDisabled;
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Production> production;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -106,8 +107,16 @@ public class User {
         return userRestrictions;
     }
 
+    public String getUserDisabled() {
+        return userDisabled;
+    }
+
     public void setUserRestrictions(String userRestrictions) {
         this.userRestrictions = userRestrictions;
+    }
+
+    public void setUserDisabled(String userDisabled) {
+        this.userDisabled = userDisabled;
     }
 
     public Collection<Production> getProduction() {

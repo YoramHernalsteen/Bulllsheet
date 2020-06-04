@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Your Profile</title>
+    <title>User List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -38,9 +38,6 @@
                         <p th:text="${actor.getEmail()}"></p>
                     </div>
                     <div class="col">
-                        <p th:text="${actor.getPhoneNumber()}"></p>
-                    </div>
-                    <div class="col">
                         <p th:text="'User-group: ' + ${actor.getUserRestrictions()}"></p>
                     </div>
                     <div class="col">
@@ -67,9 +64,6 @@
                     </div>
                     <div class="col-3">
                         <p th:text="${sound.getEmail()}"></p>
-                    </div>
-                    <div class="col">
-                        <p th:text="${sound.getPhoneNumber()}"></p>
                     </div>
                     <div class="col">
                         <p th:text="'User-group: ' + ${sound.getUserRestrictions()}"></p>
@@ -100,9 +94,6 @@
                         <p th:text="${cam.getEmail()}"></p>
                     </div>
                     <div class="col">
-                        <p th:text="${cam.getPhoneNumber()}"></p>
-                    </div>
-                    <div class="col">
                         <p th:text="'User-group: ' + ${cam.getUserRestrictions()}"></p>
                     </div>
                     <div class="col">
@@ -131,9 +122,6 @@
                         <p th:text="${prod.getEmail()}"></p>
                     </div>
                     <div class="col">
-                        <p th:text="${prod.getPhoneNumber()}"></p>
-                    </div>
-                    <div class="col">
                         <p th:text="'User-group: ' + ${prod.getUserRestrictions()}"></p>
                     </div>
                     <div class="col">
@@ -160,9 +148,6 @@
                     </div>
                     <div class="col-3">
                         <p th:text="${dir.getEmail()}"></p>
-                    </div>
-                    <div class="col">
-                        <p th:text="${dir.getPhoneNumber()}"></p>
                     </div>
                     <div class="col">
                         <p th:text="'User-group: ' + ${dir.getUserRestrictions()}"></p>
