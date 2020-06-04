@@ -543,7 +543,7 @@ INSERT INTO day_planning(id, time_start, time_end, description, location, callsh
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '15:00', '17:00', 'opname deel 3', 'Locatie 1', 32);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '17:00', '17:45', 'opruimen', 'Locatie 1', 32);
 
-INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:00', '9:30', 'Samenkomen op locatie', 'Locatie 1', 3);
+INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:00', '9:30', 'Samenkomen op locatie', 'Locatie 1', 33);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '9:30', '10:00', 'klaarzetten voor opname', 'Locatie 1', 33);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '10:00', '12:00', 'opname deel 1', 'Locatie 1', 33);
 INSERT INTO day_planning(id, time_start, time_end, description, location, callsheet_id) VALUES (nextval('planning_seq'), '13:00', '15:00', 'opname deel 2', 'Locatie 1', 33);

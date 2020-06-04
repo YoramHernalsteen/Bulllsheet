@@ -378,10 +378,7 @@ public class HomeController {
             note = noteRepository.findByCallsheet(callsheet);
             equipment = callsheet.getEquipment();
         }
-        User user =null;
-        Optional<User> optionalUser = userRepository.findByUsername((String) request.getSession().getAttribute("username"));
-        if (optionalUser.isPresent()) user = optionalUser.get();
-        System.out.println(userRepository);
+
         model.addAttribute("crew", userRepository.findByFunctionAndCallsheets("Crew", callsheet));
         model.addAttribute("casting", userRepository.findByFunctionAndCallsheets("Cast", callsheet));
         model.addAttribute("callsheet", callsheet);
