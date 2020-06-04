@@ -11,14 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-<header class="row">
-    <nav class="col text-center nav-bg">
-        <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
-        <a class="nav-item btn btn-nav" href="/">Home</a>
-    </nav>
-</header>
+    <header class="row">
+        <nav class="col text-center nav-bg">
+            <a class="pr-3" href="/"><img src="/img/BullSheets_logo.png" height="110"></a>
+            <a class="nav-item btn btn-nav" href="/">Home</a>
+            <a class="nav-item btn btn-nav" href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
+        </nav>
+    </header>
+
 <div class="container pt-3">
     <div class="mt-2">
+        <a href="/user-list" style="font-size: 4rem;" class="iconHome"><i class="fas fa-users-cog"></i></a>
         <h2 th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></h2>
         <br>
         <form method="post" class="needs-validation" novalidate>
@@ -75,8 +78,40 @@
                 </select>
             </div>
 
+            <div class="form-group col popup">
+                <label for="userProduction" style="width: 120px;">User productions: </label>
+                <select class="custom-select" id="userProduction" name="userProduction" style="max-width: 200px;" readonly>
+                    <option th:each="prod : ${production}" th:text="${prod.name}" th:value="${prod}"></option>
+                </select>
+            </div>
+
             <br>
             <input class="btn btn-primary mr-5" style="width: 150px;" type="submit" value="Edit" name="submit">
+
+
+            <br>
+            <br>
+            <div class="form-group col popup">
+                <label for="userAddProduction" style="max-width: 300px;">Add user to production: </label>
+                <select class="custom-select" id="userAddProduction" name="userAddProduction" style="max-width: 200px;" readonly>
+                    <option th:each="prod : ${productions}" th:text="${prod.name}" th:value="${prod.id}"></option>
+                </select>
+                <input class="btn btn-primary mr-5" style="width: 150px;" type="submit" value="Add" name="submit">
+            </div>
+
+            <br>
+            <br>
+            <div class="form-group col popup">
+                <label for="userDeleteProduction" style="max-width: 300px;">Delete production from user: </label>
+                <select class="custom-select" id="userDeleteProduction" name="userDeleteProduction" style="max-width: 200px;" readonly>
+                    <option th:each="prod : ${production}" th:text="${prod.name}" th:value="${prod.id}"></option>
+                </select>
+                <input class="btn btn-danger mr-5" style="width: 150px;" type="submit" value="Delete" name="submit">
+            </div>
+
+            
+
+            <br>
         </form>
     </div>
 </div>

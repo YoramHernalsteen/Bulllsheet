@@ -666,15 +666,18 @@ public class HomeController {
         
 
         User user = userRepository.findById(id).get();
+        Collection productions = productionRepository.findByUsers(user);
         model.addAttribute("user", user);
-
+        model.addAttribute("production", productions);
+        model.addAttribute("productions", productionRepository.findAll());
+        //System.out.println(productionRepository.findByUsers(user));
         return "edit-selected-user";
 
     }
 
     @PostMapping("/user-list/edit-user/{id}")
     public String editUserFromListPost(HttpServletRequest request, Model model, @PathVariable Integer id, @RequestParam String function, @RequestParam String jobTitle,
-                                       @RequestParam String userGroup, @RequestParam String userDisabled) {
+                                       @RequestParam String userGroup, @RequestParam String userDisabled, @RequestParam Integer userDeleteProduction, @RequestParam Integer userAddProduction) {
         String loggedin = (String) request.getSession().getAttribute("loggedin");
 
         if (loggedin == null || loggedin.isEmpty()) {
@@ -687,6 +690,7 @@ public class HomeController {
         }
 
         String button = request.getParameter("submit");
+        System.out.println(button);
         if ("Edit".equals(button)) {
             User user;
             Optional<User> optionalUser = userRepository.findById(id);
@@ -697,6 +701,30 @@ public class HomeController {
                 user.setUserRestrictions(userGroup);
                 user.setUserDisabled(userDisabled);
                 userRepository.save(user);
+            }
+        } else if ("Delete".equals(button)) {
+            System.out.println(userDeleteProduction);
+            System.out.println("hey");
+            User user;
+            Optional<User> optionalUser = userRepository.findById(id);
+            if (optionalUser.isPresent()) {
+                user = optionalUser.get();
+                user.getProduction().removeIf(p -> p.getId() == userDeleteProduction);
+
+                return "redirect:/user-list/edit-user/" + id;
+            }
+        } else if ("Add".equals(button)) {
+            User user;
+            Production production;
+            Optional<User> optionalUser = userRepository.findById(id);
+            Optional<Production> optionalProd = productionRepository.findById(userAddProduction);
+            production = optionalProd.get();
+            if (optionalUser.isPresent()) {
+                user = optionalUser.get();
+                user.getProduction().add(production);
+
+                userRepository.save(user);
+                return "redirect:/user-list/edit-user/" + id;
             }
         }
 

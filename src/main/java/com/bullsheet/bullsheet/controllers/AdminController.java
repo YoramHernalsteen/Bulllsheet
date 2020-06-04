@@ -348,7 +348,6 @@ public class AdminController {
                 if (cyclePlanning != null) planning.add(cyclePlanning);
             }
         }
-        callsheet.setDate(date);
         callsheet.setCalltime(calltime);
         callsheet.setUsers(users);
         callsheet.setShootingLocation(mainLocation);
