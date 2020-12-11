@@ -296,8 +296,8 @@ public class AdminController {
         if (callsheetOptional.isPresent()) callsheet = callsheetOptional.get();
         Optional<Production> optionalProduction = productionRepository.findById(callsheet.getProduction().getId());
         if (optionalProduction.isPresent()) production = optionalProduction.get();
-        Iterable<DayPlanning> dayplanningDelete = dayPlanningRepository.deleteByCallsheet(callsheet);
-        Iterable<IndividualCalltime> ictDelete = individualCalltimeRepository.deleteByCallsheet(callsheet);
+        dayPlanningRepository.deleteByCallsheet(callsheet);
+        individualCalltimeRepository.deleteByCallsheet(callsheet);
         for (Map.Entry<String, List<String>> entry : allInputValues.entrySet()) {
 
             if (entry.getKey().contains("Date")) {
@@ -473,23 +473,23 @@ public class AdminController {
                     user = optionalUser.get();
                 } else {
                     user = new User();
+                    user.setUserRestrictions("user");
+                    user.setUsername(randomIdentifier(true));
+                    user.setPassword(randomIdentifier(false));
+                    if (newUserIsCrew) user.setFunction("Crew");
+                    else user.setFunction("Cast");
+                    ArrayList<Production> productions = new ArrayList<>();
+                    ArrayList<ProductionCompany> productionCompanies = new ArrayList<>();
+                    productions.add(production);
+                    productionCompanies.add(production.getProductionCompany());
+                    user.setProduction(productions);
+                    user.setProductionCompany(productionCompanies);
                 }
-                ArrayList<Production> productions = new ArrayList<>();
-                ArrayList<ProductionCompany> productionCompanies = new ArrayList<>();
-                productions.add(production);
-                productionCompanies.add(production.getProductionCompany());
                 user.setFirstName(firstName);
                 user.setLastName(lastName);
                 user.setJobTitle(formRow.get(0));
                 user.setPhoneNumber(formRow.get(2));
                 user.setEmail(formRow.get(3));
-                user.setUsername(randomIdentifier(true));
-                user.setPassword(randomIdentifier(false));
-                user.setUserRestrictions("user");
-                if (newUserIsCrew) user.setFunction("Crew");
-                else user.setFunction("Cast");
-                user.setProduction(productions);
-                user.setProductionCompany(productionCompanies);
                 userRepository.save(user);
                 Optional<User> optionalNewUser = userRepository.findByUsername(user.getUsername());
                 if (optionalNewUser.isPresent()) user = optionalNewUser.get();
