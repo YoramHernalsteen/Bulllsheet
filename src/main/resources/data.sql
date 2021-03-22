@@ -67,34 +67,34 @@ INSERT INTO callsheet (id, date, calltime, production_id, production_company_id,
 INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2020-06-16', '08:00:00', 0, 0, 0);
 
 -- parelvissers
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-11', '10:00:00', 1, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-12', '09:40:00', 1, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-13', '06:50:00', 1, 1, 5);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-14', '06:00:00', 1, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-15', '06:00:00', 1, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-18', '12:00:00', 1, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-19', '12:00:00', 1, 1, 5);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-20', '10:00:00', 1, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-21', '09:00:00', 1, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-22', '08:00:00', 1, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-23', '08:00:00', 1, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-25', '08:00:00', 1, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-11', '10:00:00', 1, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-12', '09:40:00', 1, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-13', '06:50:00', 1, 1, 5);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-14', '06:00:00', 1, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-15', '06:00:00', 1, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-18', '12:00:00', 1, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-19', '12:00:00', 1, 1, 5);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-20', '10:00:00', 1, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-21', '09:00:00', 1, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-22', '08:00:00', 1, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-23', '08:00:00', 1, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-25', '08:00:00', 1, 1, 4);
 
 -- clan
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-11', '09:00:00', 2, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-12', '09:00:00', 2, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-13', '09:30:00', 2, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-14', '09:15:00', 2, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-15', '09:15:00', 2, 1, 5);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-18', '10:00:00', 2, 1, 5);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-19', '10:00:00', 2, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-20', '09:00:00', 2, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-21', '10:00:00', 2, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-22', '09:45:00', 2, 1, 4);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-25', '09:45:00', 2, 1, 5);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-26', '08:00:00', 2, 1, 5);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-27', '08:00:00', 2, 1, 3);
-INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-02-28', '08:00:00', 2, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-11', '09:00:00', 2, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-12', '09:00:00', 2, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-13', '09:30:00', 2, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-14', '09:15:00', 2, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-15', '09:15:00', 2, 1, 5);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-18', '10:00:00', 2, 1, 5);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-19', '10:00:00', 2, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-20', '09:00:00', 2, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-04-21', '10:00:00', 2, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-22', '09:45:00', 2, 1, 4);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-25', '09:45:00', 2, 1, 5);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-26', '08:00:00', 2, 1, 5);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-27', '08:00:00', 2, 1, 3);
+INSERT INTO callsheet (id, date, calltime, production_id, production_company_id, shooting_location_id) VALUES (nextval('callsheet_seq'), '2021-03-28', '08:00:00', 2, 1, 4);
 
 INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 1', 'Megapixels: 150 MP', 0, 0);
 INSERT INTO equipment (id, type,  name, specifications, production_company_id, production_id) VALUES (nextval('equipment_seq'), 'Camera', 'High resolution 2', 'Megapixels: 102MP', 0, 0);
